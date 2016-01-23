@@ -1,0 +1,195 @@
+
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.3.0.js"></script>
+  <link rel="stylesheet" type="text/css" href="controller.css">
+  <script src="jquery-2.2.0.min.js"></script>
+	<script src="button.js"></script>
+
+
+
+  <script type="text/javascript">
+
+    var airconsole;
+    function App()
+		{
+      var me = this;
+      me.airconsole = new AirConsole({"orientation": "portrait", "synchronize_time" : "true"});
+      me.airconsole.onMessage = function(from, data)
+			{
+				$("#Debug").append(data + "<br>");
+				datas = data.split("|");
+
+				console.log("Data: ", from, data);
+				console.log("Nb data:" + datas.length);
+
+				if(datas.length == 1)
+				{
+        	cmd = datas[0];
+					console.log("onMessage cmd only: ", from, cmd);
+				}
+				else if(datas.length == 2)
+				{
+        	cmd = datas[0];
+					value = datas[1];
+
+					console.log("onMessage", from, cmd, value);
+				}
+				else
+        {
+        	console.log("onMessage: Error in arguments", from, data);
+					return;
+        }
+
+        switch(cmd)
+				{
+					case "#Intro":
+          	$("#Intro").show();
+						$("#Play").hide();
+						$("#End").hide();
+						$("#Debug").text("");
+					break;
+					case "#IntroText":
+          	$("#IntroText").text(value);
+					break;
+					case "#Play":
+						$("#Intro").hide();
+						$("#Play").show();
+						$("#End").hide();
+						hideAllBut();
+					break;
+					case "#PlayText":
+            $("#PlayText").text(value);
+					break;
+					case "#HideBut":
+						hideAllBut();
+					break;
+					case "#End":
+						$("#Intro").hide();
+						$("#Play").hide();
+						$("#End").show();
+					break;
+					case "#But0":
+					case "#But1":
+					case "#But2":
+					case "#But3":
+						$(cmd).show();
+						$(cmd).text(value);
+					break;
+					default:
+          	$("#Debug").append("Command" + cmd + "not found !<br>");
+					break;
+				}
+
+      };
+
+      me.airconsole.onReady = function(code)
+			{
+        console.log("onReady", code);
+      };
+      
+      me.airconsole.onDeviceStateChange = function(device_id, device_data)
+			{
+        console.log("onDeviceStateChange", device_id, device_data);
+      };
+
+
+      var ButStart = new Button("ButStart", {
+        "up": function() {
+        	console.log("Start");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "start"});
+        }
+      });
+			var ButEnd = new Button("ButEnd", {
+        "up": function() {
+        	console.log("ButEnd");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "end"});
+        }
+      });
+			var But0 = new Button("But0", {
+        "up": function() {
+        	console.log("But0");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But0"});
+        }
+      });
+			var But1 = new Button("But1", {
+        "up": function() {
+        	console.log("But1");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But1"});
+        }
+      });
+			var But2 = new Button("But2", {
+        "up": function() {
+        	console.log("But2");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But2"});
+        }
+      });
+			var But3 = new Button("But3", {
+        "up": function() {
+        	console.log("But3");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But3"});
+        }
+      });
+
+			$("#Intro").hide();
+			$("#Play").show();
+			$("#End").hide();
+    };
+
+		function hideAllBut()
+		{
+			$("#But0").hide();
+			$("#But1").hide();
+			$("#But2").hide();
+			$("#But3").hide();
+		};
+
+  </script>
+ 
+</head>
+<body onload="window.app = new App()">
+	<div id="Main">
+	<div id="Intro">
+		<div id ="IntroText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id="ButStart" class="btnSimple">
+			Start
+    </div>
+	</div>
+	<div id="Play">
+		<div id ="PlayText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id="But0" class="btnSimple">
+			But 1
+    </div>
+		<div id="But1" class="btnSimple">
+			But 2
+    </div>
+		<div id="But2" class="btnSimple">
+			But 3
+    </div>
+		<div id="But3" class="btnSimple">
+			But 4
+    </div>
+
+		<div id="Items">
+    	<div id="Item0" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
+    	<div id="Item1" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
+    	<div id="Item2" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
+    	<div id="Item3" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
+		</div>
+	</div>
+	<div id="End">
+		<div id ="EndText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id="ButEnd" class="btnSimple">
+			Intro
+    </div>
+	</div>
+
+	</div>
+  <div id="Debug">
+	  Debug
+	</div>
+
+
+</body>
+</html>
