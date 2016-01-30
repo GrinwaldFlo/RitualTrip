@@ -32,10 +32,21 @@ class playersScript
 
 	internal bool allReady()
 	{
-		Debug.Log("Check ready");
 		for (int i = 0; i < lstPlayer.Length; i++)
 		{
 			if (lstPlayer[i] != null && lstPlayer[i].ready == false)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	internal bool allAnswered()
+	{
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null && lstPlayer[i].answer == -1)
 			{
 				return false;
 			}
@@ -51,6 +62,17 @@ class playersScript
 			{
 				lstPlayer[i].score = 0;
 				lstPlayer[i].ready = false;
+			}
+		}
+	}
+
+	internal void resetScene()
+	{
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null)
+			{
+				lstPlayer[i].answer = -1;
 			}
 		}
 	}
@@ -88,6 +110,24 @@ class playersScript
 		lstPlayer[newScript.player] = newScript;
 
 		return newScript;
+	}
+
+	internal List<clAnswer> getResult()
+	{
+		int[] r = new int[3];
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null)
+			{
+				r[lstPlayer[i].answer]++;
+			}
+		}
+		List<clAnswer> lstR = new List<clAnswer>();
+		for (int i = 0; i < r.Length; i++)
+		{
+			lstR.Add(new clAnswer(i, r[i]));
+		}
+		return lstR;
 	}
 
 	internal void sendRoles()

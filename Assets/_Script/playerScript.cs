@@ -18,6 +18,8 @@ public class playerScript : MonoBehaviour
 	private int emotionSide;
 	private clHero role;
 
+	internal int answer;
+
 	private int p_score;
 	public int score
 	{
@@ -92,7 +94,12 @@ public class playerScript : MonoBehaviour
 
 	internal msgResponse treatMessage(string data)
 	{
-
+		if(data.StartsWith("But"))
+		{
+			int.TryParse(data.Substring(3), out answer);
+			Debug.Log("Player " + deviceId + " answer: " + answer);
+			return msgResponse.None;
+		}
 		return msgResponse.None;
 	}
 

@@ -26,7 +26,13 @@ public class audioScript : MonoBehaviour
 
 	internal void play(int id)
 	{
-		if(audioSrc.Length < id)
+		if (audioSrc == null)
+		{
+			Debug.Log("No audiosrc");
+			return;
+		}
+
+		if(id < audioSrc.Length)
 		{
 			audioSrc[id].Play();
 		}

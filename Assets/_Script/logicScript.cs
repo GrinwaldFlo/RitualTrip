@@ -17,10 +17,11 @@ public class logicScript : MonoBehaviour
 	public GameObject prefabPlayer;
 
 	public GameObject sounds;
-
+	private audioScript soundScript;
 	public Text txtMessageIntro;
 	public Text txtMessagePlay;
 	public Text txtMessageEnd;
+	public Text txtMessageResult;
 
 	private float timeStateChange;
 
@@ -28,7 +29,10 @@ public class logicScript : MonoBehaviour
 
 	public delegate void StateChangeAction();
 	public static event StateChangeAction OnStateChange;
-
+	clAction action;
+	clEmotion pnjEmotion;
+	int emotionSide;
+	int[] karma;
 
 	void Awake()
 	{
@@ -49,14 +53,17 @@ public class logicScript : MonoBehaviour
 	private void init()
 	{
 		Gvar.init();
+		soundScript = sounds.GetComponent<audioScript>();
 		players = new playersScript();
 		setGameState(enGameState.Intro);
+		karma = new int[8];
 	}
 
 	private void setGameState(enGameState state)
 	{
 		if (Gvar.gameState != state)
 		{
+			soundScript.play(0);
 			Gvar.setGameState(state);
 			timeStateChange = Time.time;
 			if (OnStateChange != null)
@@ -73,7 +80,7 @@ public class logicScript : MonoBehaviour
 					}
 					break;
 				case enGameState.Intro2:
-					//intro2Canvas.SetActive(true);
+					introCanvas.SetActive(true);
 					players.sendRoles();
 					break;
 				case enGameState.Play:
@@ -82,7 +89,44 @@ public class logicScript : MonoBehaviour
 					setNewScene();
 					break;
 				case enGameState.Result:
+					List<clAnswer> lstA = players.getResult();
+					AirConsole.instance.Broadcast(Cmd.Debug + "Help:" + lstA[0].score + " Block:" + lstA[1].score + " Do nothing:" + lstA[2].score);
+					List<int> lstR = new List<int>();
+					int max = 0;
+					foreach (clAnswer item in lstA)
+					{
+						if (item.score > max)
+							max = item.score;
+					}
+					for (int i = 0; i < lstA.Count; i++)
+					{
+						if (lstA[i].score != max)
+						{
+							lstA.RemoveAt(i);
+							i--;
+						}
+					}
+
+					clAnswer result = null;
+					if(lstA.Count == 0)
+					{
+						Debug.Log("No result...");
+						return;
+					}
+					else
+					{
+						result = lstA[Random.Range(0, lstA.Count)];
+					}
+					AirConsole.instance.Broadcast(Cmd.Debug + "Final choice:" + Gvar.actionStr[result.id]);
+					addScore(result);
 					resultCanvas.SetActive(true);
+					if (action == null)
+						Debug.Log("No action");
+					if (result == null)
+						Debug.Log("No result");
+
+					txtMessageResult.text = action.getTextResult(result.id);
+					AirConsole.instance.Broadcast(Cmd.Result);
 					break;
 				case enGameState.End:
 					endCanvas.SetActive(true);
@@ -98,15 +142,36 @@ public class logicScript : MonoBehaviour
 		}
 	}
 
+	private void addScore(clAnswer result)
+	{
+		clResult r = Gvar.lstResult.Find(X => X.action == result.id && X.emotionTxt == pnjEmotion.getText(emotionSide));
+
+		if(r == null)
+		{
+			Debug.Log("No result found");
+			return;
+		}
+
+		string d = "";
+		for (int i = 0; i < karma.Length; i++)
+		{
+			karma[i] += r.val[i];
+			d += Gvar.emotionStr[i] + ":" + karma[i] + " ";
+		}
+
+		AirConsole.instance.Broadcast(Cmd.Debug + d);
+	}
+
 	private void setNewScene()
 	{
+		players.resetScene();
 		clHero pnj = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
-		clEmotion pnjEmotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
+		pnjEmotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
 		clObject obj = Gvar.lstObject[Random.Range(0, Gvar.lstObject.Count)];
 		clPlace place = Gvar.lstPlace[Random.Range(0, Gvar.lstPlace.Count)];
-		int emotionSide = Random.Range(0, 2);
+		emotionSide = Random.Range(0, 2);
 
-		clAction action = Gvar.lstAction.Find(x => x.emotion == pnjEmotion.getText(emotionSide));
+		action = Gvar.lstAction.Find(x => x.emotion == pnjEmotion.getText(emotionSide));
 
 		if (action == null)
 		{ 
@@ -114,12 +179,11 @@ public class logicScript : MonoBehaviour
 			AirConsole.instance.Broadcast(Cmd.Play + "Emotion not found in action " + pnjEmotion.getText(emotionSide));
 			return;
 		}
-
 		
 		string actionSentence = string.Format(action.sentence, obj.getLabel());
 		string r = string.Format("In {0}, {1} {2}.", place.textEN, Gvar.addDet(pnj.getLabel()), actionSentence);
 
-		txtMessagePlay.text = place.textEN + "\r\n" + place.descEN;
+		txtMessagePlay.text = place.descEN;
 		AirConsole.instance.Broadcast(Cmd.Play + r);
 		AirConsole.instance.Broadcast(Cmd.But + "0|" + action.help);
 		AirConsole.instance.Broadcast(Cmd.But + "1|" + action.block);
@@ -175,10 +239,16 @@ public class logicScript : MonoBehaviour
 				break;
 			case enGameState.Play:
 				msgResponse r = players.treatMessage(numPlayer, curCmd);
-
+				if(players.allAnswered())
+				{
+					setGameState(enGameState.Result);
+				}
 				break;
 			case enGameState.Result:
-
+				if (curCmd == "next")
+				{
+					setGameState(enGameState.Play);
+				}
 				break;
 			case enGameState.End:
 				if (curCmd == "end")
@@ -272,6 +342,12 @@ public class logicScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		//if(Time.time - timeStateChange > 5.0)
+		//{
+		//	soundScript.play(0);
+		//	timeStateChange = Time.time;
+		//}
+
 		switch (Gvar.gameState)
 		{
 			case enGameState.Intro:

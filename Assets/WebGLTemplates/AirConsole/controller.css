@@ -81,6 +81,7 @@ body {
   border: solid #1f628d 5px;
   text-decoration: none;
   margin-bottom: 5px;
+  text-align: justify;
 }
 
 .titleBox
@@ -109,7 +110,7 @@ height: 60px;
 }
 
 #Debug{
-	font-size: 10px;
+	font-size: 12px;
   color: white;
 
 }

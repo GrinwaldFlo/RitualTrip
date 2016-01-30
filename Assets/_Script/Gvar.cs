@@ -17,6 +17,12 @@ internal static class Gvar
 	internal static List<clEmotion> lstEmotion;
 	internal static List<clAction> lstAction;
 	internal static List<clObject> lstObject;
+	internal static List<clResult> lstResult;
+
+	internal static string[] emotionStr = new string[] { "depressive" , "sadistic" , "lubric" , "despotic" , "ecstatic" , "peaceful" ,
+		"puritain" , "idealist" };
+
+	internal static string[] actionStr = new string[] { "Help", "Block", "Do nothing"};
 
 	internal static void setGameState(enGameState state)
 	{
@@ -50,33 +56,34 @@ internal static class Gvar
 		lstPlace = new List<clPlace>();
 		lstAction = new List<clAction>();
 		lstObject = new List<clObject>();
+		lstResult = new List<clResult>();
 
-		lstPlace.Add(new clPlace("a good old dungeon", "donjon", "You just arrived in a closed, dark and humid place... some screams can be heard... some of them are fare away, some of them are not. You can feel a massiv building above you. You are in a good old dungeon full of stones, pain and desillusion.", ""));
-		lstPlace.Add(new clPlace("an intergalactic station", "base sidérale", "In your guts you know you are not on Earth anymore. But...this is not a moon this is a intergalactic station ! Your presence is forbidden, you know you shouldn't stay here for long...", ""));
-		lstPlace.Add(new clPlace("an enchanted forest", "forêt enchantée", "Some  birds sounds, wind in the leaves... and feminin laughts everywhere... maybe in your minds... this forest is not an ordinary one. Something in the woods is looking at you... something in the woods is waiting for you.", ""));
+		lstPlace.Add(new clPlace("a good old dungeon", "donjon", "You just arrived in a closed, dark and humid place... you can hear people screaming... some of them are far away, some of them are not. You can feel a massive building above you. You are in a good old dungeon full of stones, pain and delusions.", ""));
+		lstPlace.Add(new clPlace("an intergalactic station", "base sidérale", "In your guts you know you are not on Earth anymore. But...this is not a moon, this is a intergalactic station ! Your presence is forbidden, you know you shouldn't stay here for long...", ""));
+		lstPlace.Add(new clPlace("an enchanted forest", "forêt enchantée", "Sounds of birds, wind in the leaves... and feminin laughts everywhere... maybe in your minds... this forest is not an ordinary one. Something in the woods is looking at you... something in the woods is waiting for you.", ""));
+
+		lstPlace.Add(new clPlace("supermarket", "supermarché", "Music, sacred elements, this is a modern temple : everyone has to go there, he meaning of life is there. Get a caddy and do your duty.", ""));
+		lstPlace.Add(new clPlace("train", "train", "You are in the belly of an iron horse. Travelers are hoping to get to a destination, to meet new strange friends... like you !", ""));
+		lstObject.Add(new clObject("deadBody", "a rotting dead body", "cadavre"));
+		lstObject.Add(new clObject("altar", "a mysterious altar", "autel"));
+		lstObject.Add(new clObject("rubberChicken", "a rubber chicken", "poulet en caoutchouc"));
+		lstObject.Add(new clObject("lightSaber", "a regular light saber", "sabre laser"));
+		lstObject.Add(new clObject("chickenSandwich", "a chicken sandwich", "sandwich au poulet"));
+		lstObject.Add(new clObject("mobilePhone", "a mobile phone", "natel"));
+		lstObject.Add(new clObject("flower", "a flower", "fleur"));
+		lstObject.Add(new clObject("hamster", "a hamster", "hamster"));
+		lstObject.Add(new clObject("chandelier", "a chandelier", "chandelier"));
 
 
 
-		lstObject.Add(new clObject("a rotting dead body", "cadavre"));
-		lstObject.Add(new clObject("a mysterious altar", "autel"));
-		lstObject.Add(new clObject("a rubber chicken", "poulet en caoutchouc"));
-		lstObject.Add(new clObject("a regular light saber", "sabre laser"));
-		lstObject.Add(new clObject("a chicken sandwich", "sandwich au poulet"));
-		lstObject.Add(new clObject("a mobile phone", "natel"));
-		lstObject.Add(new clObject("a flower", "fleur"));
-		lstObject.Add(new clObject("a hamster", "hamster"));
-		lstObject.Add(new clObject("a chandelier", "chandelier"));
-
-
-
-		lstAction.Add(new clAction("depressive", "is comiting suicide with {0}", "It is a respectfull choice, let's make it quicker, it is obvious that this person doesn't know to do it well.", "Let's safe this life ! No one could be let alone in this moment of mind loss.", "Nothing to win, let's do nothing.", "Quicker is better, you a let another dead body behind you and slide in another world.", "Another life saved, what can bring more satisfaction ? Let's hope the next world will be less desesperate.", ""));
-		lstAction.Add(new clAction("sadistic", "tortures {0}", "Le'ts have fun, join the party ! Which part is still untouched ?", "No way... this must comes to an end right now !", "Not your business, let's go to another world.", "This was soooo fun, you can't wait for another world, full of such nice moments...", "Damn lunatics... Hoping that one day the victim will be able to recover  you get throught the Ritual portal with a deep sens of accomplishment.", ""));
-		lstAction.Add(new clAction("lubric", "takes pleasure with {0}", "Fun can always be shared. You never know when it will be the last time...", "Let's stop this, this is insane.", "Weird... but we don't care.", "Exhausted and smilly, you succeed to finally decide to keep on the Ritual.", "Some acts shouldn't be accomplished... Just BECAUSE ! Now jump to another universe, hopefully less disgusting.", ""));
-		lstAction.Add(new clAction("despotic", "imperially controls {0}", "Better to be on the ruler's side of social life... You even can enjoy it !", "This is unfair, let's stop this.", "Some of them wants to use u, some of them wants to get used by u... nothing new, let's get out of here.", "Such a nice feeling to be on the bright side of autorithy. Proud of yourself you enter in a new world. ", "No one should endure such a pressure... NO PASARAN ! Time to jump.", "Politics ? WTF, we are just tourists here..."));
-		lstAction.Add(new clAction("ecstatic", "is amazed by {0}", "This is fantastic, we must say something about it, let's write a poem.", "This is stupid... we can't let this happening", "WHO CARES ?", "Universe is a perfect place, not a day should be wasted by not saying it. Time to open a new cool page of your story now...", "Nonsens is nonsens. (Hit the singer till it STFU) Universe is more coherent now. Ready to jump.", "Reality is not nice, or nice. It is. Nothing to enjoy or to be depleased of."));
-		lstAction.Add(new clAction("peaceful", "sings {0}'s praises", "Peace on earth, spread the message... We may be dreamers, but we are not the only ones.", "Fucking hippy... open your eyes to the real world !", "... really ? NEXT....", "What a bliss... cheers and join the dance !", "Siliness is an insult to reality. Let's make all the useless and disturbing singers to shut the F... UP ! ", "We are deaf ok ? we don't hear anything... let's go."));
-		lstAction.Add(new clAction("puritan", "lectures {0}", "The right way must be explained and pointed right now ! This is our duty !", "So many stupid words... this must be corrected.", "nonsens... next world.", "No one can negate your deep sens morality now. Time to spread the good word in another space-time.", "No one should decide and impose his so called right way, if truth exsts it doesn't need defenders.", "The strong rules the weak... eternal story, boring..."));
-		lstAction.Add(new clAction("idealist", "leads a riot in the name of {0}", "Get up ! Stand up for your rights ! Freedom is just ahead !", "Damn anarchists... let's defend order against those silly idealists ! You shall not pass !", "This is not our war.", "Freedom is a fight, it has a price. Let's run to another chance to defend it ! ", "Society needs order, some of us needs to do the bad job to protect the stability.", "No one cares... let's not get involve in that."));
+		lstAction.Add(new clAction("depressive", "is comiting suicide with {0}", "It is a respectfull choice, let's make it quicker, it is obvious that this person doesn't know how to do it well.", "Let's save this life ! No one could be let alone in this moment of mind loss.", "Nothing to win, let's do nothing.", "Quicker is better, you a let another dead body behind you and slide in another world.", "Another life saved, what can bring more satisfaction ? Let's hope the next world will be less desesperate.", "People dies... that's what people do."));
+		lstAction.Add(new clAction("sadistic", "is torturing {0}", "Le'ts have fun, join the party ! Which part is still untouched ?", "No way... this must comes to an end right now !", "Not your business, let's go to another world.", "This was soooo fun, you can't wait for another world, full of such nice moments...", "Damn lunatics... Hoping that one day the victim will be able to recover, you get through the Ritual portal with a deep sens of accomplishment.", "Well... pleasure must be taken where it can be taken."));
+		lstAction.Add(new clAction("lubric", "is having pleasure with {0}", "Fun can always be shared. You never know when it will be the last time...", "Let's stop this, it is totally insane. ", "Weird... but we don't care.", "Exhausted and smily, you succeed to finally decide to keep on the Ritual.", "Some acts shouldn't be accomplished... Just BECAUSE ! Now jump to another universe, hopefully less disgusting.", "If something exists in this world... it surely already has been used this way by a human. Nothing new."));
+		lstAction.Add(new clAction("despotic", "is rudely gibing orders to {0}", "Better to be on the ruler's side of social life... You can even enjoy it !", "This is unfair, let's stop this.", "Some of them wants to use u, some of them wants to get used by u... nothing new, let's get out of here.", "Such a nice feeling to be on the bright side of the autorithies. Proud of yourself you enter in a new world. ", "No one should endure such a pressure... NO PASARAN ! Time to jump.", "Being involved in politics ? WTF, we have a Ritual to accomplish..."));
+		lstAction.Add(new clAction("ecstatic", "can't stop talking about {0}", "This is fantastic, we must say something about it, let's write a poem.", "This is stupid... we can't let this happening", "WHO CARES ?", "Universe is a perfect place, not a day should be wasted by not saying it. Time to open a new cool page of your story now...", "Nonsens is nonsens. (Hit the singer till it STFU) Universe is more coherent now. Ready to jump.", "Reality is not dark or nice. It is. Nothing to enjoy or to be depleased of."));
+		lstAction.Add(new clAction("peaceful", "is dancing with {0}", "Peace on earth, spread the message... We may be dreamers, but we are not the only ones.", "Fucking hippies... open your eyes to the real world and get a job !", "... really ? NEXT !!!", "What a bliss... cheers and join the dance !", "Silliness is an insult to reality. Let's make all the useless and disturbing dancers to stop that !", "We don't dance ok ? We don't hear anything... let's go."));
+		lstAction.Add(new clAction("puritan", "is lecturing {0}", "The right way must be explained and pointed right now to the fools ! This is our duty as righteous people !", "So many stupid words... this must be ended by all means.", "Nonsens... next world.", "No one can negate your deep sens morality now. Time to spread the good word in another space-time.", "No one should decide and impose his so called \"right way\", if truth exists it doesn't need defenders.", "The strong rules the weak... eternal story, boring..."));
+		lstAction.Add(new clAction("idealist", "is leading a (solo)riot in the name of {0}", "Get up ! Stand up for your rights ! Freedom is just ahead !", "Damn anarchists hurting your ears... let's defend order against those silly idealists ! You shall not pass !", "This is not our war.", "Freedom is a fight, it has a price. Let's run to another chance to defend it ! ", "Society needs order, some of us needs to do the bad job to protect the stability.", "No one cares... let's not get involved in that."));
 
 
 
@@ -98,6 +105,230 @@ internal static class Gvar
 		lstHeros.Add(new clHero("soldier", "soldat"));
 		lstHeros.Add(new clHero("unicorn", "licorne"));
 
+
+
+		lstResult.Add(new clResult(0, "depressive", "deadBody", 1, 1, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "altar", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "rubberChicken", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "lightSaber", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "chickenSandwich", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "mobilePhone", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "flower", 1, 1, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "hamster", 1, 1, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "depressive", "chandelier", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(0, "sadistic", "deadBody", 0, 1, 1, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "altar", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "rubberChicken", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "lightSaber", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "chickenSandwich", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "mobilePhone", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "flower", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "hamster", 0, 1, 1, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "sadistic", "chandelier", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(0, "lubric", "deadBody", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "altar", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "rubberChicken", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "lightSaber", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "chickenSandwich", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "mobilePhone", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "flower", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "hamster", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(0, "lubric", "chandelier", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(0, "despotic", "deadBody", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "altar", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "rubberChicken", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "lightSaber", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "chickenSandwich", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "mobilePhone", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "flower", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "hamster", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "despotic", "chandelier", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "deadBody", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "altar", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "rubberChicken", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "lightSaber", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "chickenSandwich", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "mobilePhone", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "flower", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "hamster", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "ecstatic", "chandelier", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(0, "peaceful", "deadBody", 1, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "altar", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "rubberChicken", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "lightSaber", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "chickenSandwich", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "mobilePhone", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "flower", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "hamster", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "peaceful", "chandelier", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "deadBody", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "altar", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "rubberChicken", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "lightSaber", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "chickenSandwich", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "mobilePhone", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "flower", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "hamster", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "puritan", "chandelier", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(0, "idealist", "deadBody", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "altar", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "rubberChicken", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "lightSaber", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "chickenSandwich", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "mobilePhone", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "flower", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "hamster", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(0, "idealist", "chandelier", 0, 0, 0, 1, 0, -1, 1, 1));
+
+
+
+		lstResult.Add(new clResult(1, "depressive", "deadBody", -1, -1, 0, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "depressive", "altar", -1, 0, 0, 0, 1, 1, 2, 1));
+		lstResult.Add(new clResult(1, "depressive", "rubberChicken", -1, 0, 0, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "depressive", "lightSaber", -1, 0, 0, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "depressive", "chickenSandwich", -1, 0, 0, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "depressive", "mobilePhone", -1, 0, 0, 0, 1, 1, 1, 0));
+		lstResult.Add(new clResult(1, "depressive", "flower", -1, 0, 0, 0, 2, 2, 1, 1));
+		lstResult.Add(new clResult(1, "depressive", "hamster", -1, -2, -1, 0, 2, 2, 0, 1));
+		lstResult.Add(new clResult(1, "depressive", "chandelier", -1, -2, 0, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "sadistic", "deadBody", 0, -2, 0, 0, 1, 1, 2, 1));
+		lstResult.Add(new clResult(1, "sadistic", "altar", 0, 1, 0, 0, 1, 0, 2, -1));
+		lstResult.Add(new clResult(1, "sadistic", "rubberChicken", 0, -1, 1, 0, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "sadistic", "lightSaber", 0, -1, 1, 0, 1, 1, 0, 1));
+		lstResult.Add(new clResult(1, "sadistic", "chickenSandwich", 0, -1, 0, 0, 0, 0, 0, 0));
+		lstResult.Add(new clResult(1, "sadistic", "mobilePhone", 0, -1, 0, 0, 0, 0, 0, -1));
+		lstResult.Add(new clResult(1, "sadistic", "flower", 0, -1, 0, 0, 2, 1, 0, 1));
+		lstResult.Add(new clResult(1, "sadistic", "hamster", 0, -2, 0, 0, 2, 2, 0, 1));
+		lstResult.Add(new clResult(1, "sadistic", "chandelier", 0, 0, 0, 0, 0, 0, 2, -1));
+		lstResult.Add(new clResult(1, "lubric", "deadBody", 0, -1, -2, 1, 2, 1, 2, 1));
+		lstResult.Add(new clResult(1, "lubric", "altar", 0, 0, -2, 1, -1, 0, 2, -1));
+		lstResult.Add(new clResult(1, "lubric", "rubberChicken", 0, 1, -2, 1, -1, 0, 1, -1));
+		lstResult.Add(new clResult(1, "lubric", "lightSaber", 0, 1, -2, 1, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "lubric", "chickenSandwich", 0, 1, -2, 1, 1, 1, 1, 1));
+		lstResult.Add(new clResult(1, "lubric", "mobilePhone", 0, 1, -2, 1, 0, 0, 1, 1));
+		lstResult.Add(new clResult(1, "lubric", "flower", 0, 1, -2, 1, 1, 1, 1, 0));
+		lstResult.Add(new clResult(1, "lubric", "hamster", 0, 1, -2, 1, 2, 1, 1, 1));
+		lstResult.Add(new clResult(1, "lubric", "chandelier", 0, 1, -2, 1, 0, 0, 2, 0));
+		lstResult.Add(new clResult(1, "despotic", "deadBody", 0, 0, 0, -1, 1, 1, 1, 2));
+		lstResult.Add(new clResult(1, "despotic", "altar", 0, 0, 0, -1, 0, 1, 2, 0));
+		lstResult.Add(new clResult(1, "despotic", "rubberChicken", 0, 0, 0, -1, 0, 0, 0, 0));
+		lstResult.Add(new clResult(1, "despotic", "lightSaber", 0, 0, 0, -1, 0, 0, 0, 0));
+		lstResult.Add(new clResult(1, "despotic", "chickenSandwich", 0, 0, 0, -1, 0, 0, 0, 0));
+		lstResult.Add(new clResult(1, "despotic", "mobilePhone", 0, 0, 0, -1, 0, 0, 0, 0));
+		lstResult.Add(new clResult(1, "despotic", "flower", 0, 0, 0, -1, 1, 1, 0, 1));
+		lstResult.Add(new clResult(1, "despotic", "hamster", 0, -1, 0, -1, 1, 1, 0, 0));
+		lstResult.Add(new clResult(1, "despotic", "chandelier", 0, 0, 0, -1, 0, 0, 1, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "deadBody", -1, 0, 0, 1, -1, -1, 2, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "altar", -1, 0, 0, 1, -1, -1, -2, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "rubberChicken", -1, 0, 0, 1, -1, -1, 0, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "lightSaber", -1, 0, 0, 1, -1, -1, 0, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "chickenSandwich", -1, 0, 0, 1, -1, -1, 0, 0));
+		lstResult.Add(new clResult(1, "ecstatic", "mobilePhone", -1, 0, 0, 1, -1, -1, 0, 1));
+		lstResult.Add(new clResult(1, "ecstatic", "flower", -1, 0, 0, 1, -1, -1, 0, 1));
+		lstResult.Add(new clResult(1, "ecstatic", "hamster", -1, 0, 0, 1, -1, -1, 0, 1));
+		lstResult.Add(new clResult(1, "ecstatic", "chandelier", -1, 0, 0, 1, -1, -1, 0, 1));
+		lstResult.Add(new clResult(1, "peaceful", "deadBody", -2, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(1, "peaceful", "altar", 0, 1, 0, 1, 0, -1, -2, -1));
+		lstResult.Add(new clResult(1, "peaceful", "rubberChicken", 0, 1, 0, 1, 0, -1, 0, 0));
+		lstResult.Add(new clResult(1, "peaceful", "lightSaber", 0, 1, 0, 1, 0, -1, 0, 0));
+		lstResult.Add(new clResult(1, "peaceful", "chickenSandwich", 0, 1, 0, 1, 0, -1, 0, 0));
+		lstResult.Add(new clResult(1, "peaceful", "mobilePhone", 0, 1, 0, 1, 0, -1, 0, 1));
+		lstResult.Add(new clResult(1, "peaceful", "flower", -1, 1, 0, 1, -1, -1, 0, 0));
+		lstResult.Add(new clResult(1, "peaceful", "hamster", -1, 1, 0, 0, -1, -1, 1, 0));
+		lstResult.Add(new clResult(1, "peaceful", "chandelier", 0, 1, 0, 0, 1, -1, -2, -1));
+		lstResult.Add(new clResult(1, "puritan", "deadBody", 1, 0, 1, 1, 0, 1, -1, 0));
+		lstResult.Add(new clResult(1, "puritan", "altar", 0, 0, 0, 1, 0, 1, 0, 0));
+		lstResult.Add(new clResult(1, "puritan", "rubberChicken", 0, 0, 0, 1, 0, 1, -1, 1));
+		lstResult.Add(new clResult(1, "puritan", "lightSaber", 0, 0, 0, 1, 0, 1, -1, 1));
+		lstResult.Add(new clResult(1, "puritan", "chickenSandwich", 0, 0, 0, 1, 0, 1, -1, 1));
+		lstResult.Add(new clResult(1, "puritan", "mobilePhone", 0, 0, 0, 1, 0, 0, -1, -1));
+		lstResult.Add(new clResult(1, "puritan", "flower", 1, 0, 0, 1, 0, 1, -1, 0));
+		lstResult.Add(new clResult(1, "puritan", "hamster", 0, -1, 0, 1, 0, 1, -1, 0));
+		lstResult.Add(new clResult(1, "puritan", "chandelier", 0, 1, 0, 1, 0, 1, 0, 0));
+		lstResult.Add(new clResult(1, "idealist", "deadBody", 0, 0, 0, 1, 0, 1, 1, -1));
+		lstResult.Add(new clResult(1, "idealist", "altar", 0, 0, 0, 1, 0, 1, -1, 0));
+		lstResult.Add(new clResult(1, "idealist", "rubberChicken", 0, 0, 0, 1, 0, 1, 0, -1));
+		lstResult.Add(new clResult(1, "idealist", "lightSaber", 0, 0, 0, 1, 0, 1, 0, -1));
+		lstResult.Add(new clResult(1, "idealist", "chickenSandwich", 0, 0, 0, 1, 0, 1, 0, -1));
+		lstResult.Add(new clResult(1, "idealist", "mobilePhone", 0, 0, 0, 1, 0, 1, 0, 0));
+		lstResult.Add(new clResult(1, "idealist", "flower", -2, 0, 0, 1, 0, -1, 0, -1));
+		lstResult.Add(new clResult(1, "idealist", "hamster", -2, 0, 0, 1, 0, -1, 0, -1));
+		lstResult.Add(new clResult(1, "idealist", "chandelier", 0, 0, 0, 1, 0, -1, -1, -1));
+
+
+
+		lstResult.Add(new clResult(2, "depressive", "deadBody", 1, 1, 0, -1, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "altar", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "rubberChicken", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "lightSaber", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "chickenSandwich", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "mobilePhone", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "flower", 1, 1, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "hamster", 1, 1, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "depressive", "chandelier", 1, 0, 0, 0, -1, -1, -1, 1));
+		lstResult.Add(new clResult(2, "sadistic", "deadBody", 0, 1, 1, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "altar", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "rubberChicken", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "lightSaber", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "chickenSandwich", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "mobilePhone", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "flower", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "hamster", 0, 1, 1, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "sadistic", "chandelier", 0, 1, 0, 1, -1, -1, -1, -1));
+		lstResult.Add(new clResult(2, "lubric", "deadBody", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "altar", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "rubberChicken", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "lightSaber", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "chickenSandwich", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "mobilePhone", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "flower", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "hamster", 0, 1, 1, 0, -1, -1, -1, 0));
+		lstResult.Add(new clResult(2, "lubric", "chandelier", 0, 1, 1, 0, -1, 0, -1, 0));
+		lstResult.Add(new clResult(2, "despotic", "deadBody", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "altar", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "rubberChicken", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "lightSaber", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "chickenSandwich", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "mobilePhone", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "flower", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "hamster", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "despotic", "chandelier", 0, 1, 0, 1, -1, -1, 1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "deadBody", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "altar", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "rubberChicken", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "lightSaber", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "chickenSandwich", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "mobilePhone", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "flower", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "hamster", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "ecstatic", "chandelier", 0, -1, 0, -1, 1, 1, -1, 1));
+		lstResult.Add(new clResult(2, "peaceful", "deadBody", 1, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "altar", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "rubberChicken", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "lightSaber", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "chickenSandwich", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "mobilePhone", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "flower", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "hamster", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "peaceful", "chandelier", 0, -1, 0, 0, 1, 1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "deadBody", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "altar", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "rubberChicken", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "lightSaber", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "chickenSandwich", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "mobilePhone", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "flower", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "hamster", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "puritan", "chandelier", 0, 1, 0, 1, 0, -1, 1, -1));
+		lstResult.Add(new clResult(2, "idealist", "deadBody", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "altar", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "rubberChicken", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "lightSaber", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "chickenSandwich", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "mobilePhone", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "flower", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "hamster", 0, 0, 0, 1, 0, -1, 1, 1));
+		lstResult.Add(new clResult(2, "idealist", "chandelier", 0, 0, 0, 1, 0, -1, 1, 1));
 		check();
 	}
 
@@ -115,6 +346,10 @@ internal static class Gvar
 			}
 		}
 
+		foreach (clResult item in lstResult)
+		{
+			item.check();
+		}
 		Debug.Log("--- Check Done ---");
 	}
 }
@@ -128,12 +363,12 @@ internal static class Cmd
 	internal const string End = "#End|";
 	internal const string HideBut = "#HideBut";
 	internal const string But = "#But";
-
+	internal const string Debug = "#Debug|";
 }
 
 internal static class Lng
 {
-	internal const string Intro = "From Game Press start to begin";
+	internal const string Intro = "Press start to begin";
 	internal const string Play = "From Game Play";// Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consectetur tincidunt mollis. Nullam convallis tortor ex, id feugiat risus commodo in. Phasellus sagittis laoreet sem a mattis. Nulla lacus lacus.";
 	internal const string Wait = "From Game Please wait the next game";
 
@@ -163,11 +398,13 @@ internal static class Lng
 
 internal class clObject
 {
+	internal string id;
 	string labelEn;
 	string labelFr;
 
-	internal clObject(string labelEn, string labelFr)
+	internal clObject(string id, string labelEn, string labelFr)
 	{
+		this.id = id;
 		this.labelEn = labelEn;
 		this.labelFr = labelFr;
 	}
@@ -199,6 +436,21 @@ internal class clAction
 		this.resultBlock = resultBlock;
 		this.resultDoNothing = resultDoNothing;
 		this.resultHelp = resultHelp;
+	}
+
+	internal string getTextResult(int id)
+	{
+		switch (id)
+		{
+			case 0:
+				return resultHelp;
+			case 1:
+				return resultBlock;
+			case 2:
+				return resultDoNothing;
+			default:
+				return "Nothing found...";
+		}
 	}
 }
 
@@ -251,6 +503,60 @@ internal class clPlace
 		this.textFR = textFR;
 		this.descEN = descEN;
 		this.descFR = descFR;
+	}
+}
+
+internal class clResult
+{
+	internal string emotionTxt;
+	internal string objectTxt;
+	internal int[] val;
+
+	//private  emotion;
+	//private int emotionInv = 0;
+	//private clObject obj;
+	internal int action;
+
+	internal clResult(int action, string emotionTxt, string objectTxt, params int[] val)
+	{
+		this.action = action;
+		this.emotionTxt = emotionTxt;
+		this.objectTxt = objectTxt;
+		this.val = val;
+	}
+
+	internal void check()
+	{
+		clEmotion emotion = Gvar.lstEmotion.Find(X => X.getText(0) == emotionTxt);
+		if (emotion == null)
+		{
+			emotion = Gvar.lstEmotion.Find(X => X.getText(1) == emotionTxt);
+		}
+
+		if (emotion == null)
+		{
+			Debug.Log("!!!!!!!!! Emotion not found: " + emotionTxt);
+			return;
+		}
+
+		clObject obj = Gvar.lstObject.Find(X => X.id == objectTxt);
+		if (obj == null)
+		{
+			Debug.Log("!!!!!!!!! Object not found: " + objectTxt);
+			return;
+		}
+	}
+}
+
+internal class clAnswer
+{
+	internal int id;
+	internal int score;
+
+	internal clAnswer(int id, int score)
+	{
+		this.id = id;
+		this.score = score;
 	}
 }
 

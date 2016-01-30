@@ -65,6 +65,10 @@
 					case "#HideBut":
 						hideAllBut();
 					break;
+					case "#Result":
+						hideAllDiv();
+						$("#Result").show();
+					break;
 					case "#End":
 						hideAllDiv();
 						$("#End").show();
@@ -76,6 +80,9 @@
 						$(cmd).show();
 						$(cmd).text(value);
 					break;
+          case "#Debug":
+
+          break;
 					default:
           	$("#Debug").append("Command" + cmd + "not found !<br>");
 					break;
@@ -105,6 +112,12 @@
         	console.log("Ready");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "ready"});
           $("#ButReady").hide();
+        }
+      });
+      var ButEnd = new Button("ButNext", {
+        "up": function() {
+        	console.log("ButNext");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "next"});
         }
       });
 			var ButEnd = new Button("ButEnd", {
@@ -193,16 +206,14 @@
     </div>
 
     <div id="ButRestart" class="btnSimple">
-			Restart
+			(Debug) Restart
     </div>
-		<div id="Items">
-    	<div id="Item0" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
-    	<div id="Item1" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
-    	<div id="Item2" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
-    	<div id="Item3" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
-		</div>
 
-
+	</div>
+  <div id="Result">
+		<div id="ButNext" class="btnSimple">
+		  Next
+    </div>
 	</div>
 	<div id="End" class="textBox">
 		<div id ="EndText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
