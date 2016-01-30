@@ -29,10 +29,10 @@ public class logicScript : MonoBehaviour
 
 	public delegate void StateChangeAction();
 	public static event StateChangeAction OnStateChange;
-	clAction action;
-	clEmotion pnjEmotion;
-	int emotionSide;
+
 	int[] karma;
+	List<clScene> lstScene = new List<clScene>();
+	clScene curScene;
 
 	void Awake()
 	{
@@ -78,6 +78,7 @@ public class logicScript : MonoBehaviour
 					{
 						AirConsole.instance.Broadcast(Cmd.Intro + Lng.Intro);
 					}
+					lstScene.Clear();
 					break;
 				case enGameState.Intro2:
 					introCanvas.SetActive(true);
@@ -120,19 +121,30 @@ public class logicScript : MonoBehaviour
 					AirConsole.instance.Broadcast(Cmd.Debug + "Final choice:" + Gvar.actionStr[result.id]);
 					addScore(result);
 					resultCanvas.SetActive(true);
-					if (action == null)
-						Debug.Log("No action");
-					if (result == null)
-						Debug.Log("No result");
 
-					txtMessageResult.text = action.getTextResult(result.id);
+					txtMessageResult.text = curScene.action.getTextResult(result.id);
 					AirConsole.instance.Broadcast(Cmd.Result);
 					break;
 				case enGameState.End:
+					List<clAnswer> lstF = new List<clAnswer>();
+					for (int i = 0; i < karma.Length; i++)
+					{
+						lstF.Add(new clAnswer(i, karma[i]));
+					}
+
+					lstF.Sort();
+
+					string endText = "";
+					foreach (clAnswer item in lstF)
+					{
+						endText += item.score + " - " + Gvar.emotionStr[item.id] + "\r\n";
+					}
+
+					txtMessageEnd.text = endText;
 					endCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
-						AirConsole.instance.Broadcast(Cmd.End);
+						AirConsole.instance.Broadcast(Cmd.End + "Le futur text de fin");
 					}
 
 					break;
@@ -144,7 +156,7 @@ public class logicScript : MonoBehaviour
 
 	private void addScore(clAnswer result)
 	{
-		clResult r = Gvar.lstResult.Find(X => X.action == result.id && X.emotionTxt == pnjEmotion.getText(emotionSide));
+		clResult r = curScene.getResult(result);
 
 		if(r == null)
 		{
@@ -165,29 +177,14 @@ public class logicScript : MonoBehaviour
 	private void setNewScene()
 	{
 		players.resetScene();
-		clHero pnj = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
-		pnjEmotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
-		clObject obj = Gvar.lstObject[Random.Range(0, Gvar.lstObject.Count)];
-		clPlace place = Gvar.lstPlace[Random.Range(0, Gvar.lstPlace.Count)];
-		emotionSide = Random.Range(0, 2);
+		curScene = new clScene();
+		lstScene.Add(curScene);
 
-		action = Gvar.lstAction.Find(x => x.emotion == pnjEmotion.getText(emotionSide));
-
-		if (action == null)
-		{ 
-			Debug.Log("Emotion not found in action " + pnjEmotion.getText(emotionSide));
-			AirConsole.instance.Broadcast(Cmd.Play + "Emotion not found in action " + pnjEmotion.getText(emotionSide));
-			return;
-		}
-		
-		string actionSentence = string.Format(action.sentence, obj.getLabel());
-		string r = string.Format("In {0}, {1} {2}.", place.textEN, Gvar.addDet(pnj.getLabel()), actionSentence);
-
-		txtMessagePlay.text = place.descEN;
-		AirConsole.instance.Broadcast(Cmd.Play + r);
-		AirConsole.instance.Broadcast(Cmd.But + "0|" + action.help);
-		AirConsole.instance.Broadcast(Cmd.But + "1|" + action.block);
-		AirConsole.instance.Broadcast(Cmd.But + "2|" + action.doNothing);
+		txtMessagePlay.text = curScene.place.descEN;
+		AirConsole.instance.Broadcast(Cmd.Play + curScene.introText);
+		AirConsole.instance.Broadcast(Cmd.But + "0|" + curScene.action.help);
+		AirConsole.instance.Broadcast(Cmd.But + "1|" + curScene.action.block);
+		AirConsole.instance.Broadcast(Cmd.But + "2|" + curScene.action.doNothing);
 		//AirConsole.instance.Broadcast(Cmd.But + "3|"+ Lng.Answer4);
 	}
 
@@ -247,7 +244,10 @@ public class logicScript : MonoBehaviour
 			case enGameState.Result:
 				if (curCmd == "next")
 				{
-					setGameState(enGameState.Play);
+					if (lstScene.Count >= 5)
+						setGameState(enGameState.End);
+					else
+						setGameState(enGameState.Play);
 				}
 				break;
 			case enGameState.End:

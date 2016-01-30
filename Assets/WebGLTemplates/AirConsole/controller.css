@@ -46,6 +46,16 @@ body {
   background: #185D8B;
 }
 
+.btnSelected {
+  background: #fc0000;
+  background-image: -webkit-linear-gradient(top, #fc0000, #730000);
+  background-image: -moz-linear-gradient(top, #fc0000, #730000);
+  background-image: -ms-linear-gradient(top, #fc0000, #730000);
+  background-image: -o-linear-gradient(top, #fc0000, #730000);
+  background-image: linear-gradient(to bottom, #fc0000, #730000);
+  border: solid #730000 5px;
+}
+
 #Main {
 	  background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #d7ecfa);
@@ -110,7 +120,7 @@ height: 60px;
 }
 
 #Debug{
-	font-size: 12px;
+	font-size: 25px;
   color: white;
 
 }

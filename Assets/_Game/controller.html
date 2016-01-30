@@ -49,18 +49,19 @@
             hideAllDiv();
           	$("#Intro").show();
 						$("#Debug").text("");
-            $("#IntroText").text(value);
+            $("#IntroText").html(value);
 					break;
 					case "#Intro2":
             hideAllDiv();
           	$("#Intro2").show();
-            $("#Intro2Text").text(value);
+            $("#Intro2Text").html(value);
             $("#ButReady").show();
 					break;
 					case "#Play":
+            unselectBut();
 						hideAllDiv();
 						$("#Play").show();
-            $("#PlayText").text(value);
+            $("#PlayText").html(value);
 					break;
 					case "#HideBut":
 						hideAllBut();
@@ -71,6 +72,7 @@
 					break;
 					case "#End":
 						hideAllDiv();
+            $("#EndText").html(value);
 						$("#End").show();
 					break;
 					case "#But0":
@@ -114,7 +116,7 @@
           $("#ButReady").hide();
         }
       });
-      var ButEnd = new Button("ButNext", {
+      var ButNext = new Button("ButNext", {
         "up": function() {
         	console.log("ButNext");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "next"});
@@ -130,18 +132,24 @@
         "up": function() {
         	console.log("But0");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But0"});
+          unselectBut();
+          $("#But0").addClass("btnSelected");
         }
       });
 			var But1 = new Button("But1", {
         "up": function() {
         	console.log("But1");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But1"});
+          unselectBut();
+          $("#But1").addClass("btnSelected");
         }
       });
 			var But2 = new Button("But2", {
         "up": function() {
         	console.log("But2");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But2"});
+          unselectBut();
+          $("#But2").addClass("btnSelected");
         }
       });
 
@@ -155,7 +163,7 @@
       hideAllDiv();
 			//$("#Intro").show();
       //$("#Intro2").show();
-		  //$("#Play").show();
+		  $("#Play").show();
       //$("#Result").show();
 		  //$("#End").show();
     };
@@ -165,6 +173,13 @@
 			$("#But0").hide();
 			$("#But1").hide();
 			$("#But2").hide();
+		};
+
+    function unselectBut()
+		{
+			$("#But0").removeClass("btnSelected");
+			$("#But1").removeClass("btnSelected");
+			$("#But2").removeClass("btnSelected");
 		};
 
     function hideAllDiv()
@@ -205,14 +220,14 @@
 			But 3
     </div>
 
-    <div id="ButRestart" class="btnSimple">
+    <div id="ButRestart" class="btnSimple btnSelected">
 			(Debug) Restart
     </div>
 
 	</div>
   <div id="Result">
 		<div id="ButNext" class="btnSimple">
-		  Next
+		  Go to next world
     </div>
 	</div>
 	<div id="End" class="textBox">

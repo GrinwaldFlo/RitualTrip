@@ -108,6 +108,6 @@ public class playerScript : MonoBehaviour
 		role = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
 		emotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
 		emotionSide = Random.Range(0, 2);
-		AirConsole.instance.Message(deviceId, Cmd.Intro2 + string.Format("Your are {0} {1}", Gvar.addDet(emotion.getText(emotionSide)), role.getLabel()));
+		AirConsole.instance.Message(deviceId, Cmd.Intro2 + string.Format("Your are {0} {1}<br><br>{2}", Gvar.addDet(emotion.getText(emotionSide)), role.getLabel(), role.getDescr()));
 	}
 }
