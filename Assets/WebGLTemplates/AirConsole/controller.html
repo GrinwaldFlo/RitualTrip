@@ -28,6 +28,7 @@
 				{
         	cmd = datas[0];
 					console.log("onMessage cmd only: ", from, cmd);
+          value = "";
 				}
 				else if(datas.length == 2)
 				{
@@ -45,29 +46,27 @@
         switch(cmd)
 				{
 					case "#Intro":
+            hideAllDiv();
           	$("#Intro").show();
-						$("#Play").hide();
-						$("#End").hide();
 						$("#Debug").text("");
+            $("#IntroText").text(value);
 					break;
-					case "#IntroText":
-          	$("#IntroText").text(value);
+					case "#Intro2":
+            hideAllDiv();
+          	$("#Intro2").show();
+            $("#Intro2Text").text(value);
+            $("#ButReady").show();
 					break;
 					case "#Play":
-						$("#Intro").hide();
+						hideAllDiv();
 						$("#Play").show();
-						$("#End").hide();
-						hideAllBut();
-					break;
-					case "#PlayText":
             $("#PlayText").text(value);
 					break;
 					case "#HideBut":
 						hideAllBut();
 					break;
 					case "#End":
-						$("#Intro").hide();
-						$("#Play").hide();
+						hideAllDiv();
 						$("#End").show();
 					break;
 					case "#But0":
@@ -101,6 +100,13 @@
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "start"});
         }
       });
+      var ButReady = new Button("ButReady", {
+        "up": function() {
+        	console.log("Ready");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "ready"});
+          $("#ButReady").hide();
+        }
+      });
 			var ButEnd = new Button("ButEnd", {
         "up": function() {
         	console.log("ButEnd");
@@ -125,16 +131,20 @@
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But2"});
         }
       });
-			var But3 = new Button("But3", {
+
+      var ButRestart = new Button("ButRestart", {
         "up": function() {
-        	console.log("But3");
-          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "But3"});
+        	console.log("ButRestart");
+          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "restart"});
         }
       });
 
-			$("#Intro").hide();
-			$("#Play").show();
-			$("#End").hide();
+      hideAllDiv();
+			//$("#Intro").show();
+      //$("#Intro2").show();
+		  //$("#Play").show();
+      //$("#Result").show();
+		  //$("#End").show();
     };
 
 		function hideAllBut()
@@ -142,8 +152,16 @@
 			$("#But0").hide();
 			$("#But1").hide();
 			$("#But2").hide();
-			$("#But3").hide();
 		};
+
+    function hideAllDiv()
+    {
+			$("#Intro").hide();
+      $("#Intro2").hide();
+			$("#Play").hide();
+			$("#Result").hide();
+			$("#End").hide();
+    }
 
   </script>
  
@@ -151,13 +169,19 @@
 <body onload="window.app = new App()">
 	<div id="Main">
 	<div id="Intro">
-		<div id ="IntroText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id ="IntroText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="ButStart" class="btnSimple">
 			Start
     </div>
 	</div>
+  <div id="Intro2">
+		<div id="Intro2Text" class="textBox">Intro 2 Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id="ButReady" class="btnSimple">
+			I'm ready !
+    </div>
+	</div>
 	<div id="Play">
-		<div id ="PlayText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id ="PlayText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="But0" class="btnSimple">
 			But 1
     </div>
@@ -167,18 +191,20 @@
 		<div id="But2" class="btnSimple">
 			But 3
     </div>
-		<div id="But3" class="btnSimple">
-			But 4
-    </div>
 
+    <div id="ButRestart" class="btnSimple">
+			Restart
+    </div>
 		<div id="Items">
     	<div id="Item0" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
     	<div id="Item1" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
     	<div id="Item2" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
     	<div id="Item3" class="Item"><img src="item0.png" alt="Item 0" class="ItemImg"></div>
 		</div>
+
+
 	</div>
-	<div id="End">
+	<div id="End" class="textBox">
 		<div id ="EndText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="ButEnd" class="btnSimple">
 			Intro

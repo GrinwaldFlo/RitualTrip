@@ -14,6 +14,9 @@ public class playerScript : MonoBehaviour
 	public Text txtScore;
 	//internal Text txtScoreGlob;
 	private Image backgroundImage;
+	private clEmotion emotion;
+	private int emotionSide;
+	private clHero role;
 
 	private int p_score;
 	public int score
@@ -33,6 +36,8 @@ public class playerScript : MonoBehaviour
 	}
 
 	private int p_scoreGlob;
+	internal bool ready;
+
 	public int scoreGlob
 	{
 		get
@@ -89,5 +94,13 @@ public class playerScript : MonoBehaviour
 	{
 
 		return msgResponse.None;
+	}
+
+	internal void setRole()
+	{
+		role = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
+		emotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
+		emotionSide = Random.Range(0, 2);
+		AirConsole.instance.Message(deviceId, Cmd.Intro2 + string.Format("Your are {0} {1}", Gvar.addDet(emotion.getText(emotionSide)), role.getLabel()));
 	}
 }

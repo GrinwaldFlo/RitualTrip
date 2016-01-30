@@ -8,11 +8,15 @@ using Newtonsoft.Json.Linq;
 public class logicScript : MonoBehaviour
 {
 	public GameObject introCanvas;
+	//public GameObject intro2Canvas;
 	public GameObject playCanvas;
+	public GameObject resultCanvas;
 	public GameObject endCanvas;
 	public GameObject uiPlayLeft;
 	public GameObject uiPlayRight;
 	public GameObject prefabPlayer;
+
+	public GameObject sounds;
 
 	public Text txtMessageIntro;
 	public Text txtMessagePlay;
@@ -20,7 +24,7 @@ public class logicScript : MonoBehaviour
 
 	private float timeStateChange;
 
-	public playerScript[] lstPlayer = new playerScript[Gvar.nbPlayerMax];
+	private playersScript players;
 
 	public delegate void StateChangeAction();
 	public static event StateChangeAction OnStateChange;
@@ -44,6 +48,8 @@ public class logicScript : MonoBehaviour
 
 	private void init()
 	{
+		Gvar.init();
+		players = new playersScript();
 		setGameState(enGameState.Intro);
 	}
 
@@ -56,39 +62,35 @@ public class logicScript : MonoBehaviour
 			if (OnStateChange != null)
 				OnStateChange();
 
-
+			hideAllCanvas();
 			switch (state)
 			{
 				case enGameState.Intro:
 					introCanvas.SetActive(true);
-					playCanvas.SetActive(false);
-					endCanvas.SetActive(false);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
-						AirConsole.instance.Broadcast(Cmd.Intro);
-						AirConsole.instance.Broadcast(Cmd.IntroText + Lng.Intro);
+						AirConsole.instance.Broadcast(Cmd.Intro + Lng.Intro);
 					}
 					break;
+				case enGameState.Intro2:
+					//intro2Canvas.SetActive(true);
+					players.sendRoles();
+					break;
 				case enGameState.Play:
-					introCanvas.SetActive(false);
-					endCanvas.SetActive(false);
+					playCanvas.SetActive(true);
 
-					AirConsole.instance.Broadcast(Cmd.Play);
-					AirConsole.instance.Broadcast(Cmd.PlayText + Lng.Play);
-					AirConsole.instance.Broadcast(Cmd.But + "0|" + Lng.Answer1);
-					AirConsole.instance.Broadcast(Cmd.But + "1|" + Lng.Answer2);
-					AirConsole.instance.Broadcast(Cmd.But + "2|" + Lng.Answer3);
-					//AirConsole.instance.Broadcast(Cmd.But + "3|"+ Lng.Answer4);
+					setNewScene();
+					break;
+				case enGameState.Result:
+					resultCanvas.SetActive(true);
 					break;
 				case enGameState.End:
-					introCanvas.SetActive(false);
-					playCanvas.SetActive(false);
 					endCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
 						AirConsole.instance.Broadcast(Cmd.End);
 					}
-						
+
 					break;
 				default:
 					break;
@@ -96,11 +98,49 @@ public class logicScript : MonoBehaviour
 		}
 	}
 
+	private void setNewScene()
+	{
+		clHero pnj = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
+		clEmotion pnjEmotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
+		clObject obj = Gvar.lstObject[Random.Range(0, Gvar.lstObject.Count)];
+		clPlace place = Gvar.lstPlace[Random.Range(0, Gvar.lstPlace.Count)];
+		int emotionSide = Random.Range(0, 2);
+
+		clAction action = Gvar.lstAction.Find(x => x.emotion == pnjEmotion.getText(emotionSide));
+
+		if (action == null)
+		{ 
+			Debug.Log("Emotion not found in action " + pnjEmotion.getText(emotionSide));
+			AirConsole.instance.Broadcast(Cmd.Play + "Emotion not found in action " + pnjEmotion.getText(emotionSide));
+			return;
+		}
+
+		
+		string actionSentence = string.Format(action.sentence, obj.getLabel());
+		string r = string.Format("In {0}, {1} {2}.", place.textEN, Gvar.addDet(pnj.getLabel()), actionSentence);
+
+		txtMessagePlay.text = place.textEN + "\r\n" + place.descEN;
+		AirConsole.instance.Broadcast(Cmd.Play + r);
+		AirConsole.instance.Broadcast(Cmd.But + "0|" + action.help);
+		AirConsole.instance.Broadcast(Cmd.But + "1|" + action.block);
+		AirConsole.instance.Broadcast(Cmd.But + "2|" + action.doNothing);
+		//AirConsole.instance.Broadcast(Cmd.But + "3|"+ Lng.Answer4);
+	}
+
+	private void hideAllCanvas()
+	{
+		introCanvas.SetActive(false);
+		//intro2Canvas.SetActive(false);
+		playCanvas.SetActive(false);
+		resultCanvas.SetActive(false);
+		endCanvas.SetActive(false);
+	}
+
 	private void Instance_onMessage(int from, JToken data)
 	{
 		int numPlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(from);
 
-		if (lstPlayer[numPlayer] == null)
+		if (!players.exists(numPlayer))
 		{
 			Debug.Log("Player " + numPlayer + " doesn't exists");
 			return;
@@ -108,18 +148,37 @@ public class logicScript : MonoBehaviour
 		string curCmd = data.Value<string>("cmd");
 		Debug.Log("CMD: " + curCmd);
 
+		if(curCmd == "restart")
+		{
+			setGameState(enGameState.Intro);
+		}
+
 		switch (Gvar.gameState)
 		{
 			case enGameState.None:
 				break;
 			case enGameState.Intro:
-
-				if(curCmd == "start")
+				if (curCmd == "start")
+				{
+					players.reset();
+					setGameState(enGameState.Intro2);
+				}
+				break;
+			case enGameState.Intro2:
+				if (curCmd == "ready")
+				{
+					Debug.Log("Set ready");
+					players.setReady(numPlayer);
+				}
+				if (players.allReady())
 					setGameState(enGameState.Play);
 				break;
 			case enGameState.Play:
-				msgResponse r = lstPlayer[numPlayer].treatMessage(curCmd);
-				setGameState(enGameState.End);
+				msgResponse r = players.treatMessage(numPlayer, curCmd);
+
+				break;
+			case enGameState.Result:
+
 				break;
 			case enGameState.End:
 				if (curCmd == "end")
@@ -130,33 +189,17 @@ public class logicScript : MonoBehaviour
 		}
 	}
 
-	private void resetPlayerScore()
-	{
-		for (int i = 0; i < lstPlayer.Length; i++)
-		{
-			if (lstPlayer[i] != null)
-			{
-				lstPlayer[i].score = 0;
-			}
-		}
-	}
+
+
+
+
+
 
 	private void Instance_onDisconnect(int device_id)
 	{
 		Debug.Log("Disconnected " + device_id);
 
-		deletePlayer(device_id);
-	}
-
-	private void deletePlayer(int device_id)
-	{
-		int numPlayer = AirConsole.instance.ConvertDeviceIdToPlayerNumber(device_id);
-
-		if (lstPlayer[numPlayer] != null)
-		{
-			Destroy(lstPlayer[numPlayer].gameObject);
-			lstPlayer[numPlayer] = null;
-		}
+		players.delete(this, device_id);
 		arrangePlayer();
 	}
 
@@ -176,40 +219,26 @@ public class logicScript : MonoBehaviour
 
 		Debug.Log("Connected " + device_id);
 
-		addPlayer(device_id);
+		playerScript cur = players.add(this, device_id);
+		arrangePlayer();
 
-		if(Gvar.gameState == enGameState.Intro)
+		if (Gvar.gameState == enGameState.Intro)
 		{
-			AirConsole.instance.Message(device_id, Cmd.Intro);
-			AirConsole.instance.Message(device_id, Cmd.IntroText + Lng.Intro);
+			AirConsole.instance.Message(device_id, Cmd.Intro + Lng.Intro);
+		}
+		else if (Gvar.gameState == enGameState.Intro2)
+		{
+			cur.setRole();
 		}
 		else
 		{
-			AirConsole.instance.Message(device_id, Cmd.Intro);
-			AirConsole.instance.Message(device_id, Cmd.IntroText + Lng.Wait);
+			AirConsole.instance.Message(device_id, Cmd.Intro + Lng.Wait);
 		}
-	}
-
-	private void addPlayer(int device_id)
-	{
-		GameObject newPlayer = Instantiate(prefabPlayer);
-		playerScript newScript = newPlayer.GetComponent<playerScript>();
-		newScript.init(device_id);
-		lstPlayer[newScript.player] = newScript;
-		arrangePlayer();
 	}
 
 	private void arrangePlayer()
 	{
-		List<playerScript> lstP = new List<playerScript>();
-
-		for (int i = 0; i < lstPlayer.Length; i++)
-		{
-			if (lstPlayer[i] != null)
-			{
-				lstP.Add(lstPlayer[i]);
-			}
-		}
+		List<playerScript> lstP = players.getList();
 
 		for (int i = 0; i < lstP.Count; i++)
 		{

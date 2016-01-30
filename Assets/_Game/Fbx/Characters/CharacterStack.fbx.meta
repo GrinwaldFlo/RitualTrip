@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 3611088c65b1d4246b5b0df648bd0b4f
+timeCreated: 1454143040
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: assassins:Assassin
+    100002: back
+    100004: //RootNode
+    100006: Paladin:Helm
+    100008: Paladin:Paladin
+    100010: Paladin:Sheild
+    100012: Paladin:transform3
+    100014: Paladin:Visor
+    100016: pCube7
+    100018: pCube8
+    100020: pCube9
+    100022: pCylinder1
+    100024: pCylinder2
+    100026: pSphere1
+    100028: pSphere2
+    100030: Straw_man
+    100032: transform2
+    100034: Unicorn:Head
+    100036: Unicorn:Horn
+    100038: Unicorn:Unicorn
+    400000: assassins:Assassin
+    400002: back
+    400004: //RootNode
+    400006: Paladin:Helm
+    400008: Paladin:Paladin
+    400010: Paladin:Sheild
+    400012: Paladin:transform3
+    400014: Paladin:Visor
+    400016: pCube7
+    400018: pCube8
+    400020: pCube9
+    400022: pCylinder1
+    400024: pCylinder2
+    400026: pSphere1
+    400028: pSphere2
+    400030: Straw_man
+    400032: transform2
+    400034: Unicorn:Head
+    400036: Unicorn:Horn
+    400038: Unicorn:Unicorn
+    2300000: assassins:Assassin
+    2300002: Paladin:Helm
+    2300004: Paladin:Sheild
+    2300006: Paladin:Visor
+    2300008: pCube7
+    2300010: pCube8
+    2300012: pCylinder1
+    2300014: pCylinder2
+    2300016: pSphere1
+    2300018: pSphere2
+    2300020: Unicorn:Head
+    2300022: Unicorn:Horn
+    3300000: assassins:Assassin
+    3300002: Paladin:Helm
+    3300004: Paladin:Sheild
+    3300006: Paladin:Visor
+    3300008: pCube7
+    3300010: pCube8
+    3300012: pCylinder1
+    3300014: pCylinder2
+    3300016: pSphere1
+    3300018: pSphere2
+    3300020: Unicorn:Head
+    3300022: Unicorn:Horn
+    4300000: pCube7
+    4300002: pCube8
+    4300004: pSphere1
+    4300006: pSphere2
+    4300008: pCylinder1
+    4300010: pCylinder2
+    4300012: assassins:Assassin
+    4300014: Paladin:Helm
+    4300016: Paladin:Visor
+    4300018: Paladin:Sheild
+    4300020: Unicorn:Horn
+    4300022: Unicorn:Head
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
