@@ -9,10 +9,21 @@ using System;
 class playersScript
 {
 	public playerScript[] lstPlayer = new playerScript[Gvar.nbPlayerMax];
+	internal static List<clHero> lstHeros;
+	internal static List<clEmotion> lstEmotion;
 
 	public playersScript()
 	{
 
+	}
+
+	internal static void init()
+	{
+		lstHeros = new List<clHero>();
+		lstHeros.AddRange(Gvar.lstHeros);
+
+		lstEmotion = new List<clEmotion>();
+		lstEmotion.AddRange(Gvar.lstEmotion);
 	}
 
 	internal bool exists(int numPlayer)
@@ -54,13 +65,12 @@ class playersScript
 		return true;
 	}
 
-	internal void reset()
+	internal void resetReady()
 	{
 		for (int i = 0; i < lstPlayer.Length; i++)
 		{
 			if (lstPlayer[i] != null)
 			{
-				lstPlayer[i].score = 0;
 				lstPlayer[i].ready = false;
 			}
 		}
@@ -140,6 +150,47 @@ class playersScript
 			}
 		}
 
+	}
+
+	internal clEmotion updWinLose(List<clAnswer> lstF)
+	{
+		List<clAnswer> lstAnswerWin = lstF.FindAll(X => X.score == lstF[0].score);
+		clEmotion[] lstEmotionWin = new clEmotion[lstAnswerWin.Count];
+
+		for (int i = 0; i < lstAnswerWin.Count; i++)
+		{
+			lstEmotionWin[i] = Gvar.lstEmotion.Find(X => X.id == lstAnswerWin[i].id);
+		}
+
+		
+
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null)
+			{
+				lstPlayer[i].win = false;
+				if (lstPlayer[i].emotion.id == lstEmotionWin[0].id)
+				{
+					lstPlayer[i].score = lstPlayer[i].score + 1; 
+					lstPlayer[i].win = true;
+				}
+			}
+		}
+
+		return lstEmotionWin[0];
+	}
+
+	internal void sendWinLoose(clEmotion emotionWin)
+	{
+		string txt = Cmd.End + emotionWin.getWin() + "<br><b>";
+
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null)
+			{
+				lstPlayer[i].sendWinLoose(txt);
+			}
+		}
 	}
 }
 

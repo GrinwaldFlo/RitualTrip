@@ -68,12 +68,17 @@
 					break;
 					case "#Result":
 						hideAllDiv();
+            $("#ResultText").html(value);
+            $("#ButNext").show();
 						$("#Result").show();
 					break;
 					case "#End":
 						hideAllDiv();
             $("#EndText").html(value);
 						$("#End").show();
+					break;
+          case "#Descr":
+            $("#Descr").html(value);
 					break;
 					case "#But0":
 					case "#But1":
@@ -120,6 +125,7 @@
         "up": function() {
         	console.log("ButNext");
           me.airconsole.message(AirConsole.SCREEN, {"cmd" : "next"});
+          $("#ButNext").hide();
         }
       });
 			var ButEnd = new Button("ButEnd", {
@@ -153,19 +159,14 @@
         }
       });
 
-      var ButRestart = new Button("ButRestart", {
-        "up": function() {
-        	console.log("ButRestart");
-          me.airconsole.message(AirConsole.SCREEN, {"cmd" : "restart"});
-        }
-      });
-
       hideAllDiv();
 			//$("#Intro").show();
       //$("#Intro2").show();
-		  $("#Play").show();
+		  //$("#Play").show();
       //$("#Result").show();
 		  //$("#End").show();
+
+      $("#Wait").show();
     };
 
 		function hideAllBut()
@@ -184,18 +185,22 @@
 
     function hideAllDiv()
     {
+      $("#Wait").hide();
 			$("#Intro").hide();
       $("#Intro2").hide();
 			$("#Play").hide();
 			$("#Result").hide();
 			$("#End").hide();
-    }
+    };
 
   </script>
- 
+
 </head>
 <body onload="window.app = new App()">
 	<div id="Main">
+  <div id="Wait">
+    <div class="textBox">Please wait game is loading</div>
+  </div>
 	<div id="Intro">
 		<div id ="IntroText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="ButStart" class="btnSimple">
@@ -220,18 +225,19 @@
 			But 3
     </div>
 
-    <div id="ButRestart" class="btnSimple btnSelected">
-			(Debug) Restart
+    <div id="Descr" class="textBox textBoxBottom">
+     Rtret rege regtrgtr gtrgtrg trgrt gtrg trg rtg trg rtgrt gtr
     </div>
 
 	</div>
   <div id="Result">
+		<div id ="ResultText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="ButNext" class="btnSimple">
 		  Go to next world
     </div>
 	</div>
 	<div id="End" class="textBox">
-		<div id ="EndText">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id ="EndText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
 		<div id="ButEnd" class="btnSimple">
 			Intro
     </div>

@@ -90,8 +90,14 @@ body {
   padding: 10px 20px 10px 20px;
   border: solid #1f628d 5px;
   text-decoration: none;
+  margin-top: 20px;
   margin-bottom: 5px;
   text-align: justify;
+}
+
+.textBoxBottom
+{
+  margin-top: 20px;
 }
 
 .titleBox

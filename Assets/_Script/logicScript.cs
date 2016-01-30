@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 public class logicScript : MonoBehaviour
 {
 	public GameObject introCanvas;
-	//public GameObject intro2Canvas;
+	public GameObject intro2Canvas;
 	public GameObject playCanvas;
 	public GameObject resultCanvas;
 	public GameObject endCanvas;
@@ -53,6 +53,7 @@ public class logicScript : MonoBehaviour
 	private void init()
 	{
 		Gvar.init();
+		playersScript.init();
 		soundScript = sounds.GetComponent<audioScript>();
 		players = new playersScript();
 		setGameState(enGameState.Intro);
@@ -73,6 +74,7 @@ public class logicScript : MonoBehaviour
 			switch (state)
 			{
 				case enGameState.Intro:
+					clScene.init();
 					introCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
@@ -81,7 +83,7 @@ public class logicScript : MonoBehaviour
 					lstScene.Clear();
 					break;
 				case enGameState.Intro2:
-					introCanvas.SetActive(true);
+					intro2Canvas.SetActive(true);
 					players.sendRoles();
 					break;
 				case enGameState.Play:
@@ -90,9 +92,9 @@ public class logicScript : MonoBehaviour
 					setNewScene();
 					break;
 				case enGameState.Result:
+					players.resetReady();
 					List<clAnswer> lstA = players.getResult();
 					AirConsole.instance.Broadcast(Cmd.Debug + "Help:" + lstA[0].score + " Block:" + lstA[1].score + " Do nothing:" + lstA[2].score);
-					List<int> lstR = new List<int>();
 					int max = 0;
 					foreach (clAnswer item in lstA)
 					{
@@ -109,21 +111,34 @@ public class logicScript : MonoBehaviour
 					}
 
 					clAnswer result = null;
-					if(lstA.Count == 0)
+					if (lstA.Count == 0)
 					{
 						Debug.Log("No result...");
 						return;
 					}
 					else
 					{
-						result = lstA[Random.Range(0, lstA.Count)];
+						if(lstA.Count == 1)
+						{
+							result = lstA[0];
+						}
+						else
+						{
+							if(lstA.Count == 2 && lstA[1].id == 2)
+							{
+								result = lstA[0];
+								Debug.Log("Result no action loose");
+							}
+							else
+								result = lstA[Random.Range(0, lstA.Count)];
+						}
 					}
 					AirConsole.instance.Broadcast(Cmd.Debug + "Final choice:" + Gvar.actionStr[result.id]);
 					addScore(result);
 					resultCanvas.SetActive(true);
 
 					txtMessageResult.text = curScene.action.getTextResult(result.id);
-					AirConsole.instance.Broadcast(Cmd.Result);
+					AirConsole.instance.Broadcast(Cmd.Result + txtMessageResult.text);
 					break;
 				case enGameState.End:
 					List<clAnswer> lstF = new List<clAnswer>();
@@ -134,7 +149,8 @@ public class logicScript : MonoBehaviour
 
 					lstF.Sort();
 
-					string endText = "";
+					clEmotion emotionWin = players.updWinLose(lstF);
+					string endText = emotionWin.getWin() + "\r\n";
 					foreach (clAnswer item in lstF)
 					{
 						endText += item.score + " - " + Gvar.emotionStr[item.id] + "\r\n";
@@ -144,7 +160,7 @@ public class logicScript : MonoBehaviour
 					endCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
-						AirConsole.instance.Broadcast(Cmd.End + "Le futur text de fin");
+						players.sendWinLoose(emotionWin);
 					}
 
 					break;
@@ -158,7 +174,7 @@ public class logicScript : MonoBehaviour
 	{
 		clResult r = curScene.getResult(result);
 
-		if(r == null)
+		if (r == null)
 		{
 			Debug.Log("No result found");
 			return;
@@ -191,7 +207,7 @@ public class logicScript : MonoBehaviour
 	private void hideAllCanvas()
 	{
 		introCanvas.SetActive(false);
-		//intro2Canvas.SetActive(false);
+		intro2Canvas.SetActive(false);
 		playCanvas.SetActive(false);
 		resultCanvas.SetActive(false);
 		endCanvas.SetActive(false);
@@ -209,7 +225,7 @@ public class logicScript : MonoBehaviour
 		string curCmd = data.Value<string>("cmd");
 		Debug.Log("CMD: " + curCmd);
 
-		if(curCmd == "restart")
+		if (curCmd == "restart")
 		{
 			setGameState(enGameState.Intro);
 		}
@@ -221,7 +237,7 @@ public class logicScript : MonoBehaviour
 			case enGameState.Intro:
 				if (curCmd == "start")
 				{
-					players.reset();
+					players.resetReady();
 					setGameState(enGameState.Intro2);
 				}
 				break;
@@ -235,14 +251,19 @@ public class logicScript : MonoBehaviour
 					setGameState(enGameState.Play);
 				break;
 			case enGameState.Play:
-				msgResponse r = players.treatMessage(numPlayer, curCmd);
-				if(players.allAnswered())
+				players.treatMessage(numPlayer, curCmd);
+				if (players.allAnswered())
 				{
 					setGameState(enGameState.Result);
 				}
 				break;
 			case enGameState.Result:
 				if (curCmd == "next")
+				{
+					players.setReady(numPlayer);
+				}
+
+				if (players.allReady())
 				{
 					if (lstScene.Count >= 5)
 						setGameState(enGameState.End);

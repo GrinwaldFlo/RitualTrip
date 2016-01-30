@@ -12,13 +12,12 @@ public class playerScript : MonoBehaviour
 	internal string playerName;
 	public Text txtName;
 	public Text txtScore;
-	//internal Text txtScoreGlob;
 	private Image backgroundImage;
-	private clEmotion emotion;
-	private int emotionSide;
+	internal clEmotion emotion;
 	private clHero role;
 
 	internal int answer;
+	internal bool win;
 
 	private int p_score;
 	public int score
@@ -37,30 +36,8 @@ public class playerScript : MonoBehaviour
 		}
 	}
 
-	private int p_scoreGlob;
 	internal bool ready;
 
-	public int scoreGlob
-	{
-		get
-		{
-			return p_scoreGlob;
-		}
-		set
-		{
-			if (value != scoreGlob)
-			{
-				p_scoreGlob = value;
-				//txtScoreGlob.text = p_scoreGlob.ToString();
-			}
-		}
-	}
-
-
-	internal void setScore(int score)
-	{
-
-	}
 
 	// Use this for initialization
 	void Start()
@@ -105,9 +82,29 @@ public class playerScript : MonoBehaviour
 
 	internal void setRole()
 	{
-		role = Gvar.lstHeros[Random.Range(0, Gvar.lstHeros.Count)];
-		emotion = Gvar.lstEmotion[Random.Range(0, Gvar.lstEmotion.Count)];
-		emotionSide = Random.Range(0, 2);
-		AirConsole.instance.Message(deviceId, Cmd.Intro2 + string.Format("Your are {0} {1}<br><br>{2}", Gvar.addDet(emotion.getText(emotionSide)), role.getLabel(), role.getDescr()));
+		if(playersScript.lstHeros.Count == 0)
+			playersScript.lstHeros.AddRange(Gvar.lstHeros);
+		if (playersScript.lstEmotion.Count == 0)
+			playersScript.lstEmotion.AddRange(Gvar.lstEmotion);
+
+		role = playersScript.lstHeros[Random.Range(0, playersScript.lstHeros.Count)];
+		emotion = playersScript.lstEmotion[Random.Range(0, playersScript.lstEmotion.Count)];
+
+		playersScript.lstHeros.Remove(role);
+		playersScript.lstEmotion.Remove(emotion);
+
+		string roleDescription = string.Format("Your are {0} {1}<br><br>{2}", Gvar.addDet(emotion.getId()), role.getLabel(), emotion.getDescr());
+		AirConsole.instance.Message(deviceId, Cmd.Intro2 + roleDescription);
+		AirConsole.instance.Message(deviceId, Cmd.Descr + roleDescription);
+	}
+
+	internal void sendWinLoose(string txt)
+	{
+		if (win)
+			txt += "You WIN !</b>";
+		else
+			txt += "You LOST !</b>";
+
+		AirConsole.instance.Message(deviceId, txt);
 	}
 }
