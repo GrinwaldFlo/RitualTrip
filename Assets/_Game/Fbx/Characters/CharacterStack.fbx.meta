@@ -35,6 +35,9 @@ ModelImporter:
     100054: Soldier
     100056: Trekker4
     100058: Unicorn2
+    100060: Cyborg1
+    100062: Princess1
+    100064: Saiyan1
     400000: assassins:Assassin
     400002: back
     400004: //RootNode
@@ -65,6 +68,9 @@ ModelImporter:
     400054: Soldier
     400056: Trekker4
     400058: Unicorn2
+    400060: Cyborg1
+    400062: Princess1
+    400064: Saiyan1
     2300000: assassins:Assassin
     2300002: Paladin:Helm
     2300004: Paladin:Sheild
@@ -88,6 +94,9 @@ ModelImporter:
     2300040: Straw_man
     2300042: Trekker4
     2300044: Unicorn2
+    2300046: Cyborg1
+    2300048: Princess1
+    2300050: Saiyan1
     3300000: assassins:Assassin
     3300002: Paladin:Helm
     3300004: Paladin:Sheild
@@ -111,6 +120,9 @@ ModelImporter:
     3300040: Straw_man
     3300042: Trekker4
     3300044: Unicorn2
+    3300046: Cyborg1
+    3300048: Princess1
+    3300050: Saiyan1
     4300000: pCube7
     4300002: pCube8
     4300004: pSphere1
@@ -134,6 +146,10 @@ ModelImporter:
     4300040: Trekker4
     4300042: Unicorn2
     4300044: Straw_man
+    4300046: Cyborg1
+    4300048: Princess1
+    4300050: Saiyan1
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -154,7 +170,59 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 25
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back
+        weight: 1
+      - path: Straw_man
+        weight: 1
+      - path: Straw_man/Accountant1
+        weight: 1
+      - path: Straw_man/assassins1
+        weight: 1
+      - path: Straw_man/Necromancer1
+        weight: 1
+      - path: Straw_man/Nurse3
+        weight: 1
+      - path: Straw_man/Paladin1
+        weight: 1
+      - path: Straw_man/Plumber1
+        weight: 1
+      - path: Straw_man/Scenarist
+        weight: 1
+      - path: Straw_man/Soldier
+        weight: 1
+      - path: Straw_man/Trekker4
+        weight: 1
+      - path: Straw_man/Unicorn2
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

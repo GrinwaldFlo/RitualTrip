@@ -160,9 +160,7 @@ class playersScript
 		{
 			lstEmotionWin[i] = Gvar.lstEmotion.Find(X => X.id == lstAnswerWin[i].id);
 		}
-
 		
-
 		for (int i = 0; i < lstPlayer.Length; i++)
 		{
 			if (lstPlayer[i] != null)
@@ -181,7 +179,7 @@ class playersScript
 
 	internal void sendWinLoose(clEmotion emotionWin)
 	{
-		string txt = Cmd.End + emotionWin.getWin() + "<br><b>";
+		string txt = Cmd.End + emotionWin.getWin() + "<br><br><br><b>";
 
 		for (int i = 0; i < lstPlayer.Length; i++)
 		{
@@ -197,6 +195,24 @@ class playersScript
 		List<playerScript> lst = getList();
 
 		lst[Random.Range(0, lst.Count)].playSound(curSound);
+	}
+
+	internal string getWinners()
+	{
+		string r = "";
+
+		for (int i = 0; i < lstPlayer.Length; i++)
+		{
+			if (lstPlayer[i] != null && lstPlayer[i].win)
+			{
+				r += lstPlayer[i].playerName + " ";
+			}
+		}
+
+		if (r == "")
+			return "You failed to acheive your desire... you will be stucked into the last world for Eternity ! (or till the next Ritual Trip...)";
+		else
+			return string.Format("{0} is your natural leader, here is the dimension of your dreams !", r.Trim());
 	}
 }
 

@@ -12,12 +12,34 @@ public class playerScript : MonoBehaviour
 	internal string playerName;
 	public Text txtName;
 	public Text txtScore;
+	public Text txtInfo;
 	private Image backgroundImage;
 	internal clEmotion emotion;
 	private clHero role;
 
-	internal int answer;
+
 	internal bool win;
+
+	private int p_answer;
+	public int answer
+	{
+		get
+		{
+			return p_answer;
+		}
+		set
+		{
+			if (value != p_answer)
+			{
+				p_answer = value;
+
+				if (p_answer == -1)
+					txtInfo.text = "We wait on you";
+				else
+					txtInfo.text = "";
+			}
+		}
+	}
 
 	private int p_score;
 	public int score
@@ -36,7 +58,28 @@ public class playerScript : MonoBehaviour
 		}
 	}
 
-	internal bool ready;
+	private bool p_ready;
+	public bool ready
+	{
+		get
+		{
+			return p_ready;
+		}
+		set
+		{
+			if (value != p_ready)
+			{
+				p_ready = value;
+
+				if (!p_ready)
+					txtInfo.text = "We wait on you";
+				else
+					txtInfo.text = "";
+			}
+		}
+	}
+
+	
 
 
 	// Use this for initialization
@@ -73,7 +116,11 @@ public class playerScript : MonoBehaviour
 	{
 		if(data.StartsWith("But"))
 		{
-			int.TryParse(data.Substring(3), out answer);
+			int tmpAnswer = -1;
+
+			if(int.TryParse(data.Substring(3), out tmpAnswer))
+				answer = tmpAnswer;
+
 			Debug.Log("Player " + deviceId + " answer: " + answer);
 			return msgResponse.None;
 		}
@@ -103,7 +150,7 @@ public class playerScript : MonoBehaviour
 		if (win)
 			txt += "You WIN !</b>";
 		else
-			txt += "You LOOSE !</b>";
+			txt += "You LOSE !</b>";
 
 		AirConsole.instance.Message(deviceId, txt);
 	}

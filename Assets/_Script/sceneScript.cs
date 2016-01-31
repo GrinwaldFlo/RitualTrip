@@ -7,6 +7,12 @@ public class sceneScript : MonoBehaviour
 	public GameObject goTile;
 	public GameObject goPnj;
 
+	public GameObject goPop;
+	public GameObject goEnd;
+	public GameObject[] goHeroPos;
+	public GameObject prefabCharacter;
+	public GameObject goStraw;
+
 	private objectScript scrObj;
 	private tileScript scrTile;
 	private characterScript scrPnj;
@@ -17,12 +23,22 @@ public class sceneScript : MonoBehaviour
 		scrObj = goObj.GetComponent<objectScript>();
 		scrTile = goTile.GetComponent<tileScript>();
 		scrPnj = goPnj.GetComponent<characterScript>();
+
+		showStraw(false);
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 
+	}
+
+	internal void showStraw(bool val)
+	{
+		goObj.SetActive(!val);
+		goTile.SetActive(!val);
+		goPnj.SetActive(!val);
+		goStraw.SetActive(val);
 	}
 
 	internal void showObj(clObject obj)
@@ -38,5 +54,10 @@ public class sceneScript : MonoBehaviour
 	internal void showPng(clHero pnj)
 	{
 		scrPnj.show(pnj);
+	}
+
+	internal void popPlayer(playerScript player)
+	{
+
 	}
 }

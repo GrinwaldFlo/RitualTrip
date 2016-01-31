@@ -8,6 +8,8 @@ public class tileScript : MonoBehaviour
 	public GameObject goForest;
 	public GameObject goSupermarket;
 	public GameObject goTrain;
+	public GameObject goAcropolis;
+	public GameObject goCervin;
 
 	private void hideAll()
 	{
@@ -16,6 +18,8 @@ public class tileScript : MonoBehaviour
 		goForest.SetActive(false);
 		goSupermarket.SetActive(false);
 		goTrain.SetActive(false);
+		goAcropolis.SetActive(false);
+		goCervin.SetActive(false);
 	}
 
 	internal void show(clPlace place)
@@ -37,6 +41,12 @@ public class tileScript : MonoBehaviour
 				break;
 			case "a train":
 				goTrain.SetActive(true);
+				break;
+			case "an acropolis":
+				goAcropolis.SetActive(true);
+				break;
+			case "the Matterhorn":
+				goCervin.SetActive(true);
 				break;
 			default:
 				break;

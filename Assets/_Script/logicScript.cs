@@ -25,6 +25,8 @@ public class logicScript : MonoBehaviour
 	public Text txtMessageEnd;
 	public Text txtMessageResult;
 	public Text txtDebug;
+	public Text txtKarma;
+	public Text txtScene;
 
 	private float timeStateChange;
 
@@ -61,13 +63,13 @@ public class logicScript : MonoBehaviour
 
 	private void init()
 	{
+		karma = new int[8];
 		Gvar.init();
 		playersScript.init();
 		scrScene = scene.GetComponent<sceneScript>();
 		soundScript = sounds.GetComponent<audioScript>();
 		players = new playersScript();
 		setGameState(enGameState.Intro);
-		karma = new int[8];
 		clSound.soundScript = soundScript;
 	}
 
@@ -84,6 +86,8 @@ public class logicScript : MonoBehaviour
 			switch (state)
 			{
 				case enGameState.Intro:
+					karma = new int[8];
+					scrScene.showStraw(false);
 					clScene.init();
 					introCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
@@ -92,8 +96,12 @@ public class logicScript : MonoBehaviour
 					}
 					lstScene.Clear();
 					txtDebug.text = "";
+					updScene();
+					updKarma();
 					break;
 				case enGameState.Intro2:
+					updScene();
+					updKarma();
 					intro2Canvas.SetActive(true);
 					players.sendRoles();
 					break;
@@ -101,6 +109,7 @@ public class logicScript : MonoBehaviour
 					playCanvas.SetActive(true);
 
 					setNewScene();
+					updScene();
 					break;
 				case enGameState.Result:
 					players.resetReady();
@@ -138,7 +147,7 @@ public class logicScript : MonoBehaviour
 							if(lstA.Count == 2 && lstA[1].id == 2)
 							{
 								result = lstA[0];
-								Debug.Log("Result no action loose");
+								Debug.Log("Result no action lose");
 							}
 							else
 								result = lstA[Random.Range(0, lstA.Count)];
@@ -150,18 +159,20 @@ public class logicScript : MonoBehaviour
 
 					txtMessageResult.text = curScene.action.getTextResult(result.id);
 					AirConsole.instance.Broadcast(Cmd.Result + txtMessageResult.text);
+					updKarma();
 					break;
 				case enGameState.End:
-					List<clAnswer> lstF = new List<clAnswer>();
-					for (int i = 0; i < karma.Length; i++)
-					{
-						lstF.Add(new clAnswer(i, karma[i]));
-					}
-
-					lstF.Sort();
+					updKarma();
+					scrScene.showStraw(true);
+					List<clAnswer> lstF = getKarma();
 
 					clEmotion emotionWin = players.updWinLose(lstF);
-					string endText = emotionWin.getWin();
+					string endText = string.Format("Your trip was mainly under the sign of\r\n{0}, {1} and {2}\r\n\r\n{3}\r\n\r\n{4}", 
+						Gvar.emotionStr[lstF[0].id],
+						Gvar.emotionStr[lstF[1].id],
+						Gvar.emotionStr[lstF[2].id],
+						emotionWin.getWin(),
+						players.getWinners()) ;
 
 					string debugText = "";
 					foreach (clAnswer item in lstF)
@@ -182,6 +193,33 @@ public class logicScript : MonoBehaviour
 					break;
 			}
 		}
+	}
+
+	private void updKarma()
+	{
+		List<clAnswer> lst = getKarma();
+
+		txtKarma.text = string.Format("{0}: {1}\r\n{2}: {3}\r\n{4}: {5}\r\n", 
+			Gvar.emotionStr[lst[0].id], lst[0].score,
+			Gvar.emotionStr[lst[1].id], lst[1].score,
+			Gvar.emotionStr[lst[2].id], lst[2].score
+			);
+	}
+
+	private void updScene()
+	{
+		txtScene.text = string.Format("Scene {0}/5", lstScene.Count);
+	}
+
+	private List<clAnswer> getKarma()
+	{
+		List<clAnswer> lst = new List<clAnswer>();
+		for (int i = 0; i < karma.Length; i++)
+		{
+			lst.Add(new clAnswer(i, karma[i]));
+		}
+		lst.Sort();
+		return lst;
 	}
 
 	private void addScore(clAnswer result)
@@ -310,6 +348,37 @@ public class logicScript : MonoBehaviour
 
 		players.delete(this, device_id);
 		arrangePlayer();
+
+		switch (Gvar.gameState)
+		{
+			case enGameState.None:
+				break;
+			case enGameState.Intro:
+				break;
+			case enGameState.Intro2:
+				if (players.allReady())
+					setGameState(enGameState.Play);
+				break;
+			case enGameState.Play:
+				if (players.allAnswered())
+				{
+					setGameState(enGameState.Result);
+				}
+				break;
+			case enGameState.Result:
+				if (players.allReady())
+				{
+					if (lstScene.Count >= 5)
+						setGameState(enGameState.End);
+					else
+						setGameState(enGameState.Play);
+				}
+				break;
+			case enGameState.End:
+				break;
+			default:
+				break;
+		}
 	}
 
 	private void Instance_onDeviceStateChange(int device_id, JToken user_data)

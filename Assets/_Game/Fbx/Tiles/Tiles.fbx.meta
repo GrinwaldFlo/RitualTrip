@@ -13,6 +13,11 @@ ModelImporter:
     100010: "Supermarch\xE91"
     100012: //RootNode
     100014: Train
+    100016: Acropole1
+    100018: portal_Entree
+    100020: portal_Sortie
+    100022: portals:back
+    100024: Cervin1
     400000: back
     400002: Base_siderale
     400004: bottom
@@ -21,21 +26,38 @@ ModelImporter:
     400010: "Supermarch\xE91"
     400012: //RootNode
     400014: Train
+    400016: Acropole1
+    400018: portal_Entree
+    400020: portal_Sortie
+    400022: portals:back
+    400024: Cervin1
     2300000: Base_siderale
     2300002: Donjon2
     2300004: "Foret_enchant\xE9e1"
     2300006: "Supermarch\xE91"
     2300008: Train
+    2300010: Acropole1
+    2300012: portal_Entree
+    2300014: portal_Sortie
+    2300016: Cervin1
     3300000: Base_siderale
     3300002: Donjon2
     3300004: "Foret_enchant\xE9e1"
     3300006: "Supermarch\xE91"
     3300008: Train
+    3300010: Acropole1
+    3300012: portal_Entree
+    3300014: portal_Sortie
+    3300016: Cervin1
     4300000: Base_siderale
     4300002: Train
     4300004: Donjon2
     4300006: "Foret_enchant\xE9e1"
     4300008: "Supermarch\xE91"
+    4300010: Acropole1
+    4300012: portal_Sortie
+    4300014: portal_Entree
+    4300016: Cervin1
     9500000: //RootNode
   materials:
     importMaterials: 1
