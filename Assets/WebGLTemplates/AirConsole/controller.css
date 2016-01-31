@@ -33,13 +33,17 @@ body {
   border-radius: 28px;
   font-family: Arial;
   color: #ffffff;
-  font-size: 16px;
+  /*font-size: 16px;*/
   padding: 10px 20px 10px 20px;
-	margin-bottom: 5px;
+  margin-bottom: 5px;
   border: solid #1f628d 5px;
   text-decoration: none;
  /* height: 60px;*/
-  text-align: center;
+  text-align: justify;
+}
+
+.btnSimpleMenu {
+  text-align:center;
 }
 
 .btnSimple.button-active {
@@ -54,10 +58,11 @@ body {
   background-image: -o-linear-gradient(top, #fc0000, #730000);
   background-image: linear-gradient(to bottom, #fc0000, #730000);
   border: solid #730000 5px;
+  text-align: justify;
 }
 
 #Main {
-	  background: #ffffff;
+	background: #ffffff;
   background-image: -webkit-linear-gradient(top, #ffffff, #d7ecfa);
   background-image: -moz-linear-gradient(top, #ffffff, #d7ecfa);
   background-image: -ms-linear-gradient(top, #ffffff, #d7ecfa);
@@ -68,7 +73,7 @@ body {
   border-radius: 8px;
   font-family: Arial;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
   padding: 10px 20px 10px 20px;
   border: solid #1f628d 5px;
   text-decoration: none;
@@ -84,20 +89,25 @@ body {
   -moz-border-radius: 8;
   border-radius: 8px;
   font-family: Arial;
-  color: #000000;
-  font-size: 14px;
-  background: #dfeffa;
   padding: 10px 20px 10px 20px;
-  border: solid #1f628d 5px;
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 5px;
   text-align: justify;
+  color: #000000;
+  background: #dfeffa;	
+  border: solid #1f628d 5px;
+  /*font-size: 16px;*/
 }
 
 .textBoxBottom
 {
-  margin-top: 20px;
+
+  color: #ffffff;
+  background: #1f628d;	
+  border: solid #3498db 5px;
+  margin-top: 30px;
+  
 }
 
 .titleBox
@@ -107,7 +117,7 @@ body {
   border-radius: 8px;
   font-family: Arial;
   color: #000000;
-  font-size: 15px;
+  /*font-size: 15px;*/
   background: #dfeffa;
   padding: 10px 20px 10px 20px;
   border: solid #1f628d 5px;

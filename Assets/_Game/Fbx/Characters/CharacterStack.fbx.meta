@@ -25,6 +25,16 @@ ModelImporter:
     100034: Unicorn:Head
     100036: Unicorn:Horn
     100038: Unicorn:Unicorn
+    100040: Accountant1
+    100042: assassins1
+    100044: Necromancer1
+    100046: Nurse3
+    100048: Paladin1
+    100050: Plumber1
+    100052: Scenarist
+    100054: Soldier
+    100056: Trekker4
+    100058: Unicorn2
     400000: assassins:Assassin
     400002: back
     400004: //RootNode
@@ -45,6 +55,16 @@ ModelImporter:
     400034: Unicorn:Head
     400036: Unicorn:Horn
     400038: Unicorn:Unicorn
+    400040: Accountant1
+    400042: assassins1
+    400044: Necromancer1
+    400046: Nurse3
+    400048: Paladin1
+    400050: Plumber1
+    400052: Scenarist
+    400054: Soldier
+    400056: Trekker4
+    400058: Unicorn2
     2300000: assassins:Assassin
     2300002: Paladin:Helm
     2300004: Paladin:Sheild
@@ -57,6 +77,17 @@ ModelImporter:
     2300018: pSphere2
     2300020: Unicorn:Head
     2300022: Unicorn:Horn
+    2300024: Accountant1
+    2300026: assassins1
+    2300028: Necromancer1
+    2300030: Nurse3
+    2300032: Paladin1
+    2300034: Plumber1
+    2300036: Scenarist
+    2300038: Soldier
+    2300040: Straw_man
+    2300042: Trekker4
+    2300044: Unicorn2
     3300000: assassins:Assassin
     3300002: Paladin:Helm
     3300004: Paladin:Sheild
@@ -69,6 +100,17 @@ ModelImporter:
     3300018: pSphere2
     3300020: Unicorn:Head
     3300022: Unicorn:Horn
+    3300024: Accountant1
+    3300026: assassins1
+    3300028: Necromancer1
+    3300030: Nurse3
+    3300032: Paladin1
+    3300034: Plumber1
+    3300036: Scenarist
+    3300038: Soldier
+    3300040: Straw_man
+    3300042: Trekker4
+    3300044: Unicorn2
     4300000: pCube7
     4300002: pCube8
     4300004: pSphere1
@@ -81,6 +123,17 @@ ModelImporter:
     4300018: Paladin:Sheild
     4300020: Unicorn:Horn
     4300022: Unicorn:Head
+    4300024: Soldier
+    4300026: Accountant1
+    4300028: assassins1
+    4300030: Necromancer1
+    4300032: Nurse3
+    4300034: Paladin1
+    4300036: Plumber1
+    4300038: Scenarist
+    4300040: Trekker4
+    4300042: Unicorn2
+    4300044: Straw_man
     9500000: //RootNode
   materials:
     importMaterials: 1

@@ -240,10 +240,14 @@
     <Compile Include="Assets\SpaceNavigator\Runtime samples\- Follow curve\Scripts\Torus.cs" />
     <Compile Include="Assets\_Script\Gvar.cs" />
     <Compile Include="Assets\_Script\Highlight.cs" />
+    <Compile Include="Assets\_Script\audioScript.cs" />
+    <Compile Include="Assets\_Script\characterScript.cs" />
     <Compile Include="Assets\_Script\logicScript.cs" />
+    <Compile Include="Assets\_Script\objectScript.cs" />
     <Compile Include="Assets\_Script\playerScript.cs" />
     <Compile Include="Assets\_Script\playersScript.cs" />
-    <Compile Include="Assets\audioScript.cs" />
+    <Compile Include="Assets\_Script\sceneScript.cs" />
+    <Compile Include="Assets\_Script\tileScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AirConsole\README.txt" />

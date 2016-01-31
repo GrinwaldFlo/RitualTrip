@@ -12,6 +12,10 @@ ModelImporter:
     100008: Hamster1
     100010: //RootNode
     100012: RubberChicken1
+    100014: Chandelier1
+    100016: Flower1
+    100018: lightsaber1
+    100020: Phone1
     400000: Altar
     400002: back
     400004: Chicken_sandwich1
@@ -19,21 +23,37 @@ ModelImporter:
     400008: Hamster1
     400010: //RootNode
     400012: RubberChicken1
+    400014: Chandelier1
+    400016: Flower1
+    400018: lightsaber1
+    400020: Phone1
     2300000: Altar
     2300002: Chicken_sandwich1
     2300004: Dead_Body1
     2300006: Hamster1
     2300008: RubberChicken1
+    2300010: Chandelier1
+    2300012: Flower1
+    2300014: lightsaber1
+    2300016: Phone1
     3300000: Altar
     3300002: Chicken_sandwich1
     3300004: Dead_Body1
     3300006: Hamster1
     3300008: RubberChicken1
+    3300010: Chandelier1
+    3300012: Flower1
+    3300014: lightsaber1
+    3300016: Phone1
     4300000: Altar
     4300002: Chicken_sandwich1
     4300004: Dead_Body1
     4300006: Hamster1
     4300008: RubberChicken1
+    4300010: Chandelier1
+    4300012: Flower1
+    4300014: lightsaber1
+    4300016: Phone1
     9500000: //RootNode
   materials:
     importMaterials: 1

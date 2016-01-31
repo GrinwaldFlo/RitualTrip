@@ -15,6 +15,8 @@ public class logicScript : MonoBehaviour
 	public GameObject uiPlayLeft;
 	public GameObject uiPlayRight;
 	public GameObject prefabPlayer;
+	public GameObject scene;
+	internal sceneScript scrScene;
 
 	public GameObject sounds;
 	private audioScript soundScript;
@@ -22,6 +24,7 @@ public class logicScript : MonoBehaviour
 	public Text txtMessagePlay;
 	public Text txtMessageEnd;
 	public Text txtMessageResult;
+	public Text txtDebug;
 
 	private float timeStateChange;
 
@@ -33,6 +36,12 @@ public class logicScript : MonoBehaviour
 	int[] karma;
 	List<clScene> lstScene = new List<clScene>();
 	clScene curScene;
+
+	float timeChangeScene = 0;
+	float timePlaySound;
+	int cntPlace;
+	int cntObj;
+	int cntPnj;
 
 	void Awake()
 	{
@@ -54,17 +63,18 @@ public class logicScript : MonoBehaviour
 	{
 		Gvar.init();
 		playersScript.init();
+		scrScene = scene.GetComponent<sceneScript>();
 		soundScript = sounds.GetComponent<audioScript>();
 		players = new playersScript();
 		setGameState(enGameState.Intro);
 		karma = new int[8];
+		clSound.soundScript = soundScript;
 	}
 
 	private void setGameState(enGameState state)
 	{
 		if (Gvar.gameState != state)
 		{
-			soundScript.play(0);
 			Gvar.setGameState(state);
 			timeStateChange = Time.time;
 			if (OnStateChange != null)
@@ -81,6 +91,7 @@ public class logicScript : MonoBehaviour
 						AirConsole.instance.Broadcast(Cmd.Intro + Lng.Intro);
 					}
 					lstScene.Clear();
+					txtDebug.text = "";
 					break;
 				case enGameState.Intro2:
 					intro2Canvas.SetActive(true);
@@ -150,13 +161,16 @@ public class logicScript : MonoBehaviour
 					lstF.Sort();
 
 					clEmotion emotionWin = players.updWinLose(lstF);
-					string endText = emotionWin.getWin() + "\r\n";
+					string endText = emotionWin.getWin();
+
+					string debugText = "";
 					foreach (clAnswer item in lstF)
 					{
-						endText += item.score + " - " + Gvar.emotionStr[item.id] + "\r\n";
+						debugText += item.score + ":" + Gvar.emotionStr[item.id] + "  /  ";
 					}
 
 					txtMessageEnd.text = endText;
+					txtDebug.text = debugText;
 					endCanvas.SetActive(true);
 					if (AirConsole.instance.GetActivePlayerDeviceIds.Count > 0)
 					{
@@ -202,6 +216,10 @@ public class logicScript : MonoBehaviour
 		AirConsole.instance.Broadcast(Cmd.But + "1|" + curScene.action.block);
 		AirConsole.instance.Broadcast(Cmd.But + "2|" + curScene.action.doNothing);
 		//AirConsole.instance.Broadcast(Cmd.But + "3|"+ Lng.Answer4);
+
+		scrScene.showTile(curScene.place);
+		scrScene.showPng(curScene.pnj);
+		scrScene.showObj(curScene.obj);
 	}
 
 	private void hideAllCanvas()
@@ -345,8 +363,8 @@ public class logicScript : MonoBehaviour
 			{
 				lstP[i].transform.SetParent(uiPlayRight.transform);
 				RectTransform r = lstP[i].GetComponent<RectTransform>();
-				r.offsetMin = new Vector2(0, -110 + i * -115);
-				r.offsetMax = new Vector2(0, 0 + i * -115);
+				r.offsetMin = new Vector2(0, -110 + (i - 4) * -115);
+				r.offsetMax = new Vector2(0, 0 + (i - 4) * -115);
 				r.localScale = new Vector3(1f, 1f, 1f);
 			}
 		}
@@ -372,8 +390,46 @@ public class logicScript : MonoBehaviour
 		switch (Gvar.gameState)
 		{
 			case enGameState.Intro:
+			case enGameState.Intro2:
+				if(Time.time - timeChangeScene > 0.8)
+				{
+					scrScene.showObj(Gvar.lstObject[cntObj++]);
+					if (cntObj >= Gvar.lstObject.Count)
+						cntObj = 0;
+
+					scrScene.showPng(Gvar.lstHeros[cntPnj++]);
+					if (cntPnj >= Gvar.lstHeros.Count)
+						cntPnj = 0;
+
+					scrScene.showTile(Gvar.lstPlace[cntPlace++]);
+					if (cntPlace >= Gvar.lstPlace.Count)
+						cntPlace = 0;
+
+					timeChangeScene = Time.time;
+				}
 				break;
+			case enGameState.Result:
 			case enGameState.Play:
+				if (Time.time - timePlaySound > 1)
+				{
+					if(Random.Range(0, 100) > 90)
+					{
+						clSound curSound = null;
+						int r = Random.Range(0, 90);
+						if (r < 30)
+							curSound = curScene.obj.play();
+						else if (r > 60)
+							curSound = curScene.place.play();
+						else
+							curSound = curScene.pnj.play();
+
+						if(curSound != null)
+						{
+							players.playSound(curSound);
+						}
+					}
+					timePlaySound = Time.time;
+				}
 				break;
 			case enGameState.End:
 				break;

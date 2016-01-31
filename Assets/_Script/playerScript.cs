@@ -93,7 +93,7 @@ public class playerScript : MonoBehaviour
 		playersScript.lstHeros.Remove(role);
 		playersScript.lstEmotion.Remove(emotion);
 
-		string roleDescription = string.Format("Your are {0} {1}<br><br>{2}", Gvar.addDet(emotion.getId()), role.getLabel(), emotion.getDescr());
+		string roleDescription = string.Format("<b>Your are {0} {1}</b><br>{2}", Gvar.addDet(emotion.getId()), role.getLabel(), emotion.getDescr());
 		AirConsole.instance.Message(deviceId, Cmd.Intro2 + roleDescription);
 		AirConsole.instance.Message(deviceId, Cmd.Descr + roleDescription);
 	}
@@ -103,8 +103,13 @@ public class playerScript : MonoBehaviour
 		if (win)
 			txt += "You WIN !</b>";
 		else
-			txt += "You LOST !</b>";
+			txt += "You LOOSE !</b>";
 
 		AirConsole.instance.Message(deviceId, txt);
+	}
+
+	internal void playSound(clSound curSound)
+	{
+		AirConsole.instance.Message(deviceId, Cmd.Sound + curSound.name);
 	}
 }

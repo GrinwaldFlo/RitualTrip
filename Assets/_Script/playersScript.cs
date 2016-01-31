@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using NDream.AirConsole;
 using Newtonsoft.Json.Linq;
-using System;
 
 class playersScript
 {
@@ -191,6 +190,13 @@ class playersScript
 				lstPlayer[i].sendWinLoose(txt);
 			}
 		}
+	}
+
+	internal void playSound(clSound curSound)
+	{
+		List<playerScript> lst = getList();
+
+		lst[Random.Range(0, lst.Count)].playSound(curSound);
 	}
 }
 

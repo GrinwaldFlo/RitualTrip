@@ -61,8 +61,8 @@ internal static class Gvar
 		lstResult = new List<clResult>();
 
 		lstPlace.Add(new clPlace("a good old dungeon", "donjon", "You just arrived in a closed, dark and humid place... you can hear people screaming... some of them are far away, some of them are not. You can feel a massive building above you. You are in a good old dungeon full of stones, pain and delusions.", ""));
-		lstPlace.Add(new clPlace("an intergalactic station", "base sidérale", "In your guts you know you are not on Earth anymore. But...this is not a moon, this is a space station ! Your presence is forbidden, you know you shouldn't stay here for long...", ""));
-		lstPlace.Add(new clPlace("an enchanted forest", "forêt enchantée", "Sounds of birds, wind in the leaves... and feminin laughts everywhere... maybe in your minds... this forest is not an ordinary one. Something in the woods is looking at you... something in the woods is waiting for you.", ""));
+		lstPlace.Add(new clPlace("a space station", "base sidérale", "In your guts you know you are not on Earth anymore. But...this is not a moon, this is a space station ! Your presence is forbidden, you know you shouldn't stay here for long...", ""));
+		lstPlace.Add(new clPlace("an enchanted forest", "forêt enchantée", "Sound of birds, wind in the leaves... and feminin laughs everywhere... maybe in your minds... this forest is not an ordinary one. Something in the woods is looking at you... something in the woods is waiting for you.", ""));
 
 		lstPlace.Add(new clPlace("a supermarket", "supermarché", "Music, sacred elements, this is a modern temple : everyone has to go there, the meaning of life is there. Grab a shopping cart and do your duty.", ""));
 		lstPlace.Add(new clPlace("a train", "train", "You are in the belly of an iron horse. Travelers are hoping to get to a destination, to meet new strange friends... like you !", ""));
@@ -84,8 +84,8 @@ internal static class Gvar
 		lstAction.Add(new clAction("depressive", "is comiting suicide with {0}", "It is a respectfull choice, let's make it quicker, it is obvious that this person doesn't know how to do it well.", "Let's save this life ! No one could be let alone in this moment of mind loss.", "Nothing to win, let's do nothing.", "Quicker is better, you a let another dead body behind you and slide in another world.", "Another life saved, what can bring more satisfaction ? Let's hope the next world will be less desesperate.", "People dies... that's what people do."));
 		lstAction.Add(new clAction("sadistic", "is torturing {0}", "Let's have fun, join the party ! Which part is still untouched ?", "No way... this must come to an end right now !", "Not your business, let's go to another world.", "This was soooo fun, you can't wait for another world, full of such nice moments...", "Damn lunatics... Hoping that one day the victim will be able to recover, you get through the Ritual portal with a deep sens of accomplishment.", "Well... pleasure must be taken where it can be taken."));
 		lstAction.Add(new clAction("lubric", "is having pleasure with {0}", "Fun can always be shared. You never know when it will be the last time...", "Let's stop this, it is totally insane. ", "Weird... but we don't care.", "Exhausted and smily, you succeed to finally decide to keep on the Ritual.", "Some acts shouldn't be accomplished... Just BECAUSE ! Now jump to another universe, hopefully less disgusting.", "If something exists in this world... it surely already has been used this way by a human. Nothing new."));
-		lstAction.Add(new clAction("despotic", "is rudely gibing orders to {0}", "Better to be on the ruler's side of social life... You can even enjoy it !", "This is unfair, let's stop this.", "Some of them wants to use you, some of them wants to get used by you... nothing new, let's get out of here.", "Such a nice feeling to be on the bright side of the authorities. Proud of yourself you enter in a new world. ", "No one should endure such a pressure... NO PASARAN ! Time to jump.", "Being involved in politics ? WTF, we have a Ritual to accomplish..."));
-		lstAction.Add(new clAction("ecstatic", "can't stop talking about {0}", "This is fantastic, we must say something about it, let's write a poem.", "This is stupid... we can't let this happening", "WHO CARES ?", "Universe is a perfect place, not a day should be wasted by not saying it. Time to open a new cool page of your story now...", "Nonsens is nonsens. (Hit the singer till it STFU) Universe is more coherent now. Ready to jump.", "Reality is not dark or nice. It is. Nothing to enjoy or to be depleased of."));
+		lstAction.Add(new clAction("despotic", "is rudely giving orders to {0}", "Better to be on the ruler's side of social life... You can even enjoy it !", "This is unfair, let's stop this.", "Some of them wants to use you, some of them wants to get used by you... nothing new, let's get out of here.", "Such a nice feeling to be on the bright side of the authorities. Proud of yourself you enter in a new world. ", "No one should endure such a pressure... NO PASARAN ! Time to jump.", "Being involved in politics ? WTF, we have a Ritual to accomplish..."));
+		lstAction.Add(new clAction("ecstatic", "can't stop talking about {0}", "This is fantastic, we must say something about it, let's write a poem.", "This is stupid... we can't let this happen", "WHO CARES ?", "Universe is a perfect place, not a day should be wasted by not saying it. Time to open a new cool page of your story now...", "Nonsens is nonsens. (Hit the singer till it STFU) Universe is more coherent now. Ready to jump.", "Reality is not dark or nice. It is. Nothing to enjoy or to be depleased of."));
 		lstAction.Add(new clAction("peaceful", "is dancing with {0}", "Peace on earth, spread the message... We may be dreamers, but we are not the only ones.", "Fucking hippies... open your eyes to the real world and get a job !", "... really ? NEXT !!!", "What a bliss... cheers and join the dance !", "Silliness is an insult to reality. Let's make all the useless and disturbing dancers to stop that !", "We don't dance ok ? We don't hear anything... let's go."));
 		lstAction.Add(new clAction("puritan", "is lecturing {0}", "The right way must be explained and pointed right now to the fools ! This is our duty as righteous people !", "So many stupid words... this must be ended by all means.", "Nonsens... next world.", "No one can negate your deep sens morality now. Time to spread the good word in another space-time.", "No one should decide and impose his so called \"right way\". If truth exists it doesn't need defenders.", "The strong rules the weak... eternal story, boring..."));
 		lstAction.Add(new clAction("idealist", "is leading a (solo) riot in the name of {0}", "Get up ! Stand up for your rights ! Freedom is just ahead !", "Damn anarchists hurting your ears... let's defend order against those silly idealists ! You shall not pass !", "This is not our war.", "Freedom is a fight, it has a price. Let's run to another chance to defend it ! ", "Society needs order, some of us needs to do the bad job to protect the stability.", "No one cares... let's not get involved in that."));
@@ -96,21 +96,23 @@ internal static class Gvar
 		lstEmotion.Add(new clEmotion(1, "sadistic", "sadique", "Seeing any lifeform suffering pleases you.... a lot.", "In this world, painfull actions are allowed after 20H00, torture is a fancy art."));
 		lstEmotion.Add(new clEmotion(2, "lubric", "lubrique", "Well... you are a bit focus on ... you know... and any kinds of objects that makes you think about it.", "All the economy, the political system and sport activity are ... lustful based."));
 		lstEmotion.Add(new clEmotion(3, "despotic", "autoritaire", "You really enjoy when people do what you want... or can't do what they want.", "You are the eternal dictator of a world submitted to your will. From time to time, you intigate a rebel mouvement in order to crush it and to enjoy your almighty power."));
-		lstEmotion.Add(new clEmotion(4, "ecstatic", "extatique", "You are always content. Positiv actions please you. You don't like negative attitude.", "Everything is a source of joy, every action or object is new and full of interesting sensations (maybe air is satured with natural serotonine)"));
+		lstEmotion.Add(new clEmotion(4, "ecstatic", "extatique", "You are always content. Positive actions please you. You don't like negative attitude.", "Everything is a source of joy, every action or object is new and full of interesting sensations (maybe air is satured with natural serotonine)"));
 		lstEmotion.Add(new clEmotion(5, "peaceful", "pacifique", "Peace on earth and everywhere else. You really dont like agressions.", "Kisses and hugs became the currency. War is a poetry contest."));
 		lstEmotion.Add(new clEmotion(6, "puritan", "puritain", "You are a bit extreme... anything dealing with rituals (or dead bodies) is sacred for you.", "In this world pulsions that are against the moral order is controled and punished. Pure people are finally rewarded and acceed the the social level they deserve."));
 		lstEmotion.Add(new clEmotion(7, "idealist", "libertaire", "Autorithy is your enemy, you are always ready to rise against it.", "Woodstock never got to an end. From USA to the world, hippies won. Peace, love and liberty everywhere."));
 
+
+
 		lstHeros.Add(new clHero("paladin", "paladin", "a fatty paladin, in a shiny and fancy armor with fine pink decorations", "an ordinary fanatic paladin, in a glowing magical armor"));
 		lstHeros.Add(new clHero("plumber", "plombier", "a polite Polish plumber, with a Romeo and Juliet tattoo on his arm", "a japanese plumber with an italian accent, with a great mustache and a red cap"));
-		lstHeros.Add(new clHero("trekker", "trekker", "an old and noble trekker, with the cleanest blue shirt you ever saw", "an young nearsighted trekkie with a dirty blue shirt full of strange smudges"));
-		lstHeros.Add(new clHero("accountant", "comptable", "a standard accountant, with a black tie and a black briefcase", "a maniac accountant, holding a mysterious black breifcase and a scary black tia"));
+		lstHeros.Add(new clHero("trekker", "trekker", "an old and noble trekker, with the cleanest blue shirt you've ever seen", "an young nearsighted trekkie with a dirty blue shirt full of strange smudges"));
+		lstHeros.Add(new clHero("accountant", "comptable", "a standard accountant, with a black tie and a black briefcase", "a maniac accountant, holding a mysterious black briefcase and a scary black tie"));
 		lstHeros.Add(new clHero("murderer", "assassin", "a quiet guy hidden in a white robe", "a perfect weapon of mass destruction wearing a white hood"));
-		lstHeros.Add(new clHero("screenwriter", "scénariste", "a crazy screenwriter holding a pen", "a lazy tv show screenwriter"));
+		lstHeros.Add(new clHero("screenwriter", "scénariste", "a crazy screenwriter holding a pen", "a lazy TV show screenwriter"));
 		lstHeros.Add(new clHero("nurse", "infirmière", "the sexiest nurse in a very short uniform", "an old, hairy and smelly nurse"));
 		lstHeros.Add(new clHero("necromancer", "nécromancien", "a young and unskilled necromancer", "a hurt and bleeding necromancer"));
 		lstHeros.Add(new clHero("soldier", "soldat", "a scary soldier, with a durty uniform", "a three stars drunk general with an open uniform"));
-		lstHeros.Add(new clHero("unicorn", "licorne", "Charlie the unicorn himself", "the last unicorn in all universes, with stars in its eyes and goldy clogs"));
+		lstHeros.Add(new clHero("unicorn", "licorne", "Charlie the unicorn himself", "the last unicorn in all universes, with stars in its eyes and golden hooves"));
 
 
 
@@ -339,7 +341,88 @@ internal static class Gvar
 
 
 
+		Gvar.addSound("object", "altar", new clSound("Single", "altar.mp3"));
+		Gvar.addSound("object", "chickenSandwich", new clSound("Single", "chickenSandwich.mp3"));
+		Gvar.addSound("object", "deadBody", new clSound("Single", "deadBody.mp3"));
+		Gvar.addSound("object", "flower", new clSound("Single", "flower.mp3"));
+		Gvar.addSound("object", "hamster", new clSound("Single", "hamster.mp3"));
+		Gvar.addSound("object", "lightSaber", new clSound("Single", "lightSaber.mp3"));
+		Gvar.addSound("object", "mobilePhone", new clSound("Single", "phone.mp3"));
+		Gvar.addSound("object", "rubberChicken", new clSound("Single", "rubberChicken.mp3"));
+		Gvar.addSound("PNJ", "paladin", new clSound("Single", "paladin.mp3"));
+		Gvar.addSound("PNJ", "plumber", new clSound("Single", "plumber.mp3"));
+		Gvar.addSound("PNJ", "trekker", new clSound("Single", "trekker.mp3"));
+		Gvar.addSound("PNJ", "accountant", new clSound("Single", "accountant.mp3"));
+		Gvar.addSound("PNJ", "murderer", new clSound("Single", "murderer.mp3"));
+		Gvar.addSound("PNJ", "screenwriter", new clSound("Single", "screenwriter.mp3"));
+		Gvar.addSound("PNJ", "nurse", new clSound("Single", "nurse.mp3"));
+		Gvar.addSound("PNJ", "necromancer", new clSound("Single", "necromancer.mp3"));
+		Gvar.addSound("PNJ", "soldier", new clSound("Single", "soldier.mp3"));
+		Gvar.addSound("PNJ", "unicorn", new clSound("Single", "unicorn.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Loop", "donjon8griffement.mp3"));
+		Gvar.addSound("lieu", "a space station", new clSound("Loop", "station5ambiance.mp3"));
+		Gvar.addSound("lieu", "an enchanted forest", new clSound("Loop", "foret1oiseaux.mp3"));
+		Gvar.addSound("lieu", "a supermarket", new clSound("Loop", "supermarket1frigo.mp3"));
+		Gvar.addSound("lieu", "a train", new clSound("Loop", "train4rails.mp3"));
+		Gvar.addSound("lieu", "a supermarket", new clSound("Phone", "supermarket2japonais.mp3"));
+		Gvar.addSound("lieu", "a supermarket", new clSound("Phone", "supermarket3maman.mp3"));
+		Gvar.addSound("lieu", "a train", new clSound("Phone", "train2annonce.mp3"));
+		Gvar.addSound("lieu", "a train", new clSound("Phone", "train3annonce.mp3"));
+		Gvar.addSound("lieu", "a train", new clSound("Phone", "train1tchou.mp3"));
+		Gvar.addSound("lieu", "a space station", new clSound("Phone", "station1vader.mp3"));
+		Gvar.addSound("lieu", "a space station", new clSound("Phone", "station3R3.mp3"));
+		Gvar.addSound("lieu", "a space station", new clSound("Phone", "station4R2.mp3"));
+		Gvar.addSound("lieu", "a space station", new clSound("Phone", "station2grincements.mp3"));
+		Gvar.addSound("lieu", "an enchanted forest", new clSound("Phone", "foret3animal.mp3"));
+		Gvar.addSound("lieu", "an enchanted forest", new clSound("Phone", "foret4animal.mp3"));
+		Gvar.addSound("lieu", "an enchanted forest", new clSound("Phone", "foret5vent.mp3"));
+		Gvar.addSound("lieu", "an enchanted forest", new clSound("Phone", "foret6corbeau.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon7mouaaa.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon6victime.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon5metal.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon4porte.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon3cri.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon2mouaaa.mp3"));
+		Gvar.addSound("lieu", "a good old dungeon", new clSound("Phone", "donjon1grincement.mp3"));
+
 		check();
+	}
+
+	private static void addSound(string idType, string id, clSound sound)
+	{
+		switch (idType)
+		{
+			case "object":
+				clObject selObj = lstObject.Find(X => X.id == id);
+				if(selObj == null)
+				{
+					Debug.Log("Object not found " + id);
+					return;
+				}
+				selObj.lstSound.Add(sound);
+				break;
+			case "PNJ":
+				clHero selPnj = lstHeros.Find(X => X.getLabel() == id);
+				if (selPnj == null)
+				{
+					Debug.Log("Pnj not found " + id);
+					return;
+				}
+				selPnj.lstSound.Add(sound);
+				break;
+			case "lieu":
+				clPlace selPlace = lstPlace.Find(X => X.textEN == id);
+				if (selPlace == null)
+				{
+					Debug.Log("Place not found " + id);
+					return;
+				}
+				selPlace.lstSound.Add(sound);
+				break;
+			default:
+				Debug.Log("Type " + idType + " / " + id + " not found");
+				break;
+		}
 	}
 
 	private static void check()
@@ -359,6 +442,7 @@ internal static class Gvar
 		}
 		Debug.Log("--- Check Done ---");
 	}
+
 }
 
 internal static class Cmd
@@ -372,6 +456,7 @@ internal static class Cmd
 	internal const string But = "#But";
 	internal const string Debug = "#Debug|";
 	internal const string Descr = "#Descr|";
+	internal const string Sound = "#Sound|";
 }
 
 internal static class Lng
@@ -380,7 +465,57 @@ internal static class Lng
 	internal const string Wait = "Please wait the next game";
 }
 
-internal class clObject
+internal class clSound
+{
+	internal static audioScript soundScript;
+	internal bool isLoop;
+	internal bool isPhone;
+	internal string playType;
+	internal string name;
+
+	internal clSound(string playType, string name)
+	{
+		isLoop = playType == "Loop";
+		isPhone = playType == "Phone";
+		this.playType = playType;
+		this.name = name.Replace(".mp3", "");
+	}
+
+	internal void play()
+	{
+		soundScript.play(name, isLoop);
+	}
+}
+
+internal abstract class ISound
+{
+	internal List<clSound> lstSound = new List<clSound>();
+
+	internal void playLoop()
+	{
+		List<clSound> sounds = lstSound.FindAll(X => X.isLoop);
+		if (sounds.Count == 0)
+			return;
+		sounds[Random.Range(0, sounds.Count)].play();
+	}
+
+	internal clSound play()
+	{
+		List<clSound> sounds = lstSound.FindAll(X => !X.isLoop);
+
+		if (sounds.Count == 0)
+			return null;
+
+		clSound curSound = sounds[Random.Range(0, sounds.Count)];
+		if (curSound.isPhone)
+			return curSound;
+		else
+			curSound.play();
+		return null;
+	}
+}
+
+internal class clObject : ISound
 {
 	internal string id;
 	string labelEn;
@@ -438,7 +573,7 @@ internal class clAction
 	}
 }
 
-internal class clHero
+internal class clHero : ISound
 {
 	string labelEn;
 	string labelFr;
@@ -498,7 +633,7 @@ internal class clEmotion
 	}
 }
 
-internal class clPlace
+internal class clPlace : ISound
 {
 	internal string textEN;
 	internal string textFR;
@@ -575,8 +710,7 @@ internal class clScene
 	internal static List<clEmotion> lstEmotion;
 	internal static List<clObject> lstObject;
 	internal static List<clPlace> lstPlace;
-
-
+	
 	internal clAction action;
 	internal clEmotion pnjEmotion;
 	internal clHero pnj;
@@ -623,6 +757,7 @@ internal class clScene
 		string actionSentence = string.Format(action.sentence, obj.getLabel());
 		introText = string.Format("In {0}, {1} {2}.", place.textEN, pnj.getDescr(), actionSentence);
 
+		place.playLoop();
 	}
 
 	internal clResult getResult(clAnswer result)

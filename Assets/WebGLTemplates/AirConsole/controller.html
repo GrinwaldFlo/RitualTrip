@@ -12,6 +12,7 @@
   <script type="text/javascript">
 
     var airconsole;
+
     function App()
 		{
       var me = this;
@@ -89,6 +90,9 @@
 					break;
           case "#Debug":
 
+          break;
+          case "#Sound":
+            playSound(value);
           break;
 					default:
           	$("#Debug").append("Command" + cmd + "not found !<br>");
@@ -169,6 +173,12 @@
       $("#Wait").show();
     };
 
+    function playSound(value)
+    {
+      var audio = new Audio("sound/" + value + ".mp3");
+      audio.play();
+    };
+
 		function hideAllBut()
 		{
 			$("#But0").hide();
@@ -196,20 +206,20 @@
   </script>
 
 </head>
-<body onload="window.app = new App()">
+<body onLoad="window.app = new App()">
 	<div id="Main">
   <div id="Wait">
-    <div class="textBox">Please wait game is loading</div>
+    <div class="textBox">Please wait, the game is loading</div>
   </div>
 	<div id="Intro">
 		<div id ="IntroText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
-		<div id="ButStart" class="btnSimple">
+		<div id="ButStart" class="btnSimple btnSimpleMenu">
 			Start
     </div>
 	</div>
   <div id="Intro2">
-		<div id="Intro2Text" class="textBox">Intro 2 Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
-		<div id="ButReady" class="btnSimple">
+		<div id="Intro2Text" class="textBox textBoxBottom">Intro 2 Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
+		<div id="ButReady" class="btnSimple btnSimpleMenu">
 			I'm ready !
     </div>
 	</div>
@@ -232,15 +242,14 @@
 	</div>
   <div id="Result">
 		<div id ="ResultText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
-		<div id="ButNext" class="btnSimple">
+		<div id="ButNext" class="btnSimple btnSimpleMenu">
 		  Go to next world
     </div>
 	</div>
 	<div id="End">
 		<div id ="EndText" class="textBox">Nullam sed suscipit ex, in malesuada lectus. Vestibulum ac ante non dui tempus rhoncus. Phasellus ut risus nunc. Praesent sed lectus ut ante varius auctor. Donec at tristique nunc, at elementum ligula. Duis a tortor vel metus tristique scelerisque vel sed diam. Quisque vitae lacinia libero. Phasellus nec auctor purus. Nunc lacus quam, hendrerit quis ante vel, consequat tincidunt erat. </div>
-		<div id="ButEnd" class="btnSimple">
-			Intro
-    </div>
+		<div id="ButEnd" class="btnSimple btnSimpleMenu">
+			Start a new game</div>
 	</div>
 
 	</div>
